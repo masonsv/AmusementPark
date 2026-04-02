@@ -2,7 +2,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class Company {
+public class AmusementPark {
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
