@@ -182,7 +182,7 @@ public class Company {
 	 */
 	public static void delete_database(Database db, Employee e){
 		try {
-			db.deleteEmployee(e);
+			//db.deleteEmployee(e);
 		} catch(SQLException ex) {
 			System.out.println("Something went wrong when deleting an employee");
 			ex.printStackTrace();

@@ -1,0 +1,32 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "138.49.184.47",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "test",
+            "database": "Chinook",
+            "username": "vagle0060"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled",
+                "ssl": {}
+            },
+            "previewLimit": 50,
+            "server": "138.49.184.47",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "test-again",
+            "database": "vagle0060_AmusementPark",
+            "username": "vagle0060",
+            "askForPassword": true
+        }
+    ]
+}
