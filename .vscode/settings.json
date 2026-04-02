@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        ".",
+        "AmusementPark\\src"
+    ],
+    "java.project.referencedLibraries": [
+        "AmusementPark\\lib\\mysql-connector-j-9.0.0.jar"
+    ]
+}

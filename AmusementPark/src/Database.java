@@ -94,13 +94,13 @@ public class Database {
     	// Test if connection works
     	try {
         	if (db.connection != null && !db.connection.isClosed()) {
-            	System.out.println("✅ Database connected successfully!");
+            	System.out.println("Database connected successfully!");
             	db.disconnect();
         	} else {
-            	System.out.println("❌ Database connection failed!");
+            	System.out.println("Database connection failed!");
         	}
  		} catch (SQLException e) {
-        	System.out.println("❌ Error checking connection!");
+        	System.out.println("Error checking connection!");
         	e.printStackTrace();
     }
 	}
