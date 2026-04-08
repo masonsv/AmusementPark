@@ -1,5 +1,4 @@
 
-
 public class Ticket {
 
     private double Cost;
