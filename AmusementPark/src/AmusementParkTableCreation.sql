@@ -1,3 +1,9 @@
+CREATE TABLE Ticket (
+	TicketType varchar(255),
+    Price double,
+    PRIMARY KEY (TicketType)
+);
+
 CREATE TABLE Customer (
 	CustomerID int NOT NULL auto_increment,
     FirstName varchar(255),
@@ -8,7 +14,7 @@ CREATE TABLE Customer (
     Age int,
     TicketType varchar(255) NOT NULL,
     PRIMARY KEY (CustomerID),
-    CONSTRAINT fk_ticket_type FOREIGN KEY (TicketType) REFERENCES Ticket (TicketType)
+    CONSTRAINT fk_customer_ticket FOREIGN KEY (TicketType) REFERENCES Ticket (TicketType)
 );
 
 CREATE TABLE Ride (
@@ -21,16 +27,14 @@ CREATE TABLE Ride (
     Capacity int,
     AvgWaitTime double,
     Rating double,
-    PRIMARY KEY (RideID, RideName)
+    PRIMARY KEY (RideID)
 );
 
 CREATE TABLE RIDE_ON (
-	RideID int,
-    RideName varchar(255),
+    RideID int,
     CustomerID int,
     CONSTRAINT fk_ride_id FOREIGN KEY (RideID) REFERENCES Ride (RideID),
-    CONSTRAINT fk_ride_name FOREIGN KEY (RideName) REFERENCES Ride (RideName),
-    CONSTRAINT fk_customer_id FOREIGN KEY (CustomerID) References Customer (CustomerID)
+    CONSTRAINT fk_rideon_customer FOREIGN KEY (CustomerID) References Customer (CustomerID)
 );
 
 CREATE TABLE CarnivalGame (
@@ -55,25 +59,30 @@ CREATE TABLE PLAY (
 	CustomerID int,
     GameID int,
     CONSTRAINT fk_game_id FOREIGN KEY (GameID) REFERENCES CarnivalGame (GameID),
-    CONSTRAINT fk_customer_id FOREIGN KEY (CustomerID) References Customer (CustomerID)
-);
-
-CREATE TABLE Ticket (
-	TicketType varchar(255),
-    Price double,
-    PRIMARY KEY (TicketType)
+    CONSTRAINT fk_play_customer FOREIGN KEY (CustomerID) References Customer (CustomerID)
 );
 
 CREATE TABLE BUY_TICKET (
 	TicketType varchar(255),
     CustomerID int,
     CONSTRAINT fk_ticket_type FOREIGN KEY (TicketType) REFERENCES Ticket (TicketType),
-    CONSTRAINT fk_customer_id FOREIGN KEY (CustomerID) References Customer (CustomerID)
+    CONSTRAINT fk_buyticket_customer FOREIGN KEY (CustomerID) References Customer (CustomerID)
 );
 
 CREATE TABLE EAT_AT (
 	StallID int,
     CustomerID int,
     CONSTRAINT fk_stall_id FOREIGN KEY (StallID) REFERENCES FoodStall (StallID),
-    CONSTRAINT fk_customer_id FOREIGN KEY (CustomerID) References Customer (CustomerID)
+    CONSTRAINT fk_eatat_customer FOREIGN KEY (CustomerID) References Customer (CustomerID)
 );
+
+
+#DROP TABLE Customer;
+#DROP TABLE Ride;
+#DROP TABLE Ticket;
+#DROP TABLE CarnivalGame;
+#DROP TABLE FoodStall;
+#DROP TABLE RIDE_ON;
+#DROP TABLE BUY_TICKET;
+#DROP TABLE EAT_AT;
+#DROP TABLE PLAY;
