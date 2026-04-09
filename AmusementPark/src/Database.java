@@ -63,6 +63,58 @@ public class Database {
 			System.out.println(e);
 		}
 	}
+
+	public void insertTicket(Ticket t) throws SQLException{
+			String sql = "INSERT INTO Ticket (Cost, TicketType) VALUES (?, ?)";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setDouble(1, t.getCost());
+			stmt.setString(2, t.getTicketType());
+			int numRowsAffected = stmt.executeUpdate();
+			System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+
+	public void updateTicketCost(Ticket t, double Cost) throws SQLException {
+			String sql = "UPDATE Ticket SET Cost = ? WHERE TicketType = ?";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setDouble(1, Cost);
+			stmt.setString(2, t.getTicketType());
+			stmt.executeUpdate();
+			t.setCost(Cost);
+	}
+
+	public boolean deleteTicket(Ticket t) throws SQLException {
+		String sql = "DELETE FROM Ticket WHERE TicketType = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, t.getTicketType());
+		int numRowsAffected = stmt.executeUpdate();
+		return numRowsAffected > 0;
+	}
+
+	public void insertRide(Ride r) throws SQLException{
+		String sql = "INSERT INTO Ride (RideID, ThrillLevel, HeightRequirement, Rating, Capacity, RideTime,"
+					 + " AvgWaitTime, RideName, RideType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, r.getRideID());
+		stmt.setInt(2, r.getThrillLevel());
+		stmt.setInt(3, r.getHeightRequirement());
+		stmt.setInt(4, r.getRating());
+		stmt.setInt(5, r.getCapacity());
+		stmt.setInt(6, r.getRideTime());
+		stmt.setDouble(7, r.getAvgWaitTime());
+		stmt.setString(8, r.getRideName());
+		stmt.setString(9, r.getRideType());
+		int numRowsAffected = stmt.executeUpdate();
+		System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+
+	public boolean deleteRide(Ride r) throws SQLException {
+		String sql = "DELETE FROM Ride WHERE RideID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, r.getRideID());
+		int numRowsAffected = stmt.executeUpdate();
+		return numRowsAffected > 0;
+	}
+	
 	
 	/**
 	 * Closes the connection with the database.
@@ -87,67 +139,23 @@ public class Database {
 		return results;
 	}
 
-	/**
-	 * Insert Carnival Game 
-	 * @param g : Game object to add to the database
-	 * @throws SQLException
-	 */
-	public void insertCarnivalGame(Game g) throws SQLException {
-		String sql = "INSERT INTO CarnivalGame (GameID, PrizeID, Price, GameName, WinOdds) VALUES (?, ?, ?, ?, ?)";
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setInt(1, g.getGameID());
-		stmt.setDouble(2, g.getPrizeID());
-		stmt.setDouble(3, g.getPrice());
-		stmt.setString(4, g.getName());
-		stmt.setDouble(5, g.getWinOdds());
-		int numRowsAffected = stmt.executeUpdate();
-		System.out.println("Number of rows affected: " + numRowsAffected);
+	public static void main(String[] args) {
+    	Database db = new Database();
+    	db.connect();
+    
+    	// Test if connection works
+    	try {
+        	if (db.connection != null && !db.connection.isClosed()) {
+            	System.out.println("Database connected successfully!");
+            	db.disconnect();
+        	} else {
+            	System.out.println("Database connection failed!");
+        	}
+ 		} catch (SQLException e) {
+        	System.out.println("Error checking connection!");
+        	e.printStackTrace();
+    }
 	}
-
-	/**
-	 * Delete a carnival game from the CarnivalGame table.
-	 * @param g : Game object representing the carnival game to delete
-	 * @return how many rows were deleted from the table.
-	 * @throws SQLException
-	 */
-	public boolean deleteCarnivalGame(Game g) throws SQLException {
-		String sql = "DELETE FROM CarnivalGame WHERE GameID = ?";
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setInt(1, g.getGameID());
-		int numRowsAffected = stmt.executeUpdate();
-		return numRowsAffected > 0;
-	}
-
-	/**
-	 * Insert Food Stall 
-	 * @param f : Food stall object to add to the database
-	 * @throws SQLException
-	 */
-	public void insertFoodStall(FoodStall f) throws SQLException {
-		String sql = "INSERT INTO FoodStall (StallID, Price, StallName, FoodType, AmounttSold) VALUES (?, ?, ?, ?, ?)";
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setInt(1, f.getStallID());
-		stmt.setDouble(2, f.getPrice());
-		stmt.setString(3, f.getName());
-		stmt.setString(4, f.getFoodType());
-		stmt.setInt(5, f.getAmountSold());
-		int numRowsAffected = stmt.executeUpdate();
-		System.out.println("Number of rows affected: " + numRowsAffected);
-	}
-
-	/**
-	 * Delete a food stall from the FoodStall table.
-	 * @param f : FoodStall object representing the foodstall to delete
-	 * @return how many rows were deleted from the table.
-	 * @throws SQLException
-	 */
-	public boolean deleteFoodStall(FoodStall f) throws SQLException {
-		String sql = "DELETE FROM FoodStall WHERE StallID = ?";
-		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setInt(1, f.getStallID());
-		int numRowsAffected = stmt.executeUpdate();
-		return numRowsAffected > 0;
-	}
-
-
+	
+		
 }

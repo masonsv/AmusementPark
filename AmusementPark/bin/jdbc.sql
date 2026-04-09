@@ -57,3 +57,23 @@ CREATE TABLE PLAY (
     CONSTRAINT fk_game_id FOREIGN KEY (GameID) REFERENCES CarnivalGame (GameID),
     CONSTRAINT fk_customer_id FOREIGN KEY (CustomerID) References Customer (CustomerID)
 );
+
+CREATE TABLE Ticket (
+	TicketType varchar(255),
+    Price double,
+    PRIMARY KEY (TicketType)
+);
+
+CREATE TABLE BUY_TICKET (
+	TicketType varchar(255),
+    CustomerID int,
+    CONSTRAINT fk_ticket_type FOREIGN KEY (TicketType) REFERENCES Ticket (TicketType),
+    CONSTRAINT fk_customer_id FOREIGN KEY (CustomerID) References Customer (CustomerID)
+);
+
+CREATE TABLE EAT_AT (
+	StallID int,
+    CustomerID int,
+    CONSTRAINT fk_stall_id FOREIGN KEY (StallID) REFERENCES FoodStall (StallID),
+    CONSTRAINT fk_customer_id FOREIGN KEY (CustomerID) References Customer (CustomerID)
+);
