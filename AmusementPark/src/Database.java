@@ -200,5 +200,28 @@ public class Database {
 		return numRowsAffected > 0;
 	}
 	
+	public void insertCustomer(Customer c) throws SQLException{
+		String sql = "INSERT INTO Customer (CustomerID, ThrillLevel, Height, Age, Budget, TicketType,"
+					+ " FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, c.getCustomerID());
+		stmt.setInt(2, c.getThrillLevel());
+		stmt.setInt(3, c.getHeight());
+		stmt.setInt(4, c.getAge());
+		stmt.setDouble(5, c.getBudget());
+		stmt.setString(6, c.getTicketType());
+		stmt.setString(7, c.getFirstName());
+		stmt.setString(8, c.getLastName());
+		int numRowsAffected = stmt.executeUpdate();
+		System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+
+	public boolean deleteCustomer(Customer c) throws SQLException {
+		String sql = "DELETE FROM Customer WHERE CustomerID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, c.getCustomerID());
+		int numRowsAffected = stmt.executeUpdate();
+		return numRowsAffected > 0;
+	}
 		
 }
