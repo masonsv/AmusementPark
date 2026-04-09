@@ -1,0 +1,176 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+
+public class Database {
+
+	/*
+	 * load SQL driver (JDBC: Java Database Connector/ODBC)
+	 * - add to build path
+	 * 
+	 * set up our database (script)
+	 * 
+	 * connect to the database
+	 * 
+	 * insert/modify/delete data (Java)
+	 * 
+	 * query data (Java)
+	 * 
+	 * disconnect from the database
+	 * 
+	 */
+
+	 /* SQLite connection to a local database */
+//	private String url = "jdbc:sqlite:/Users/asauppe/Documents/teaching/cs364/Company.db";
+
+	/* MySQL connection to a local database */
+//	private String url = "jdbc:mysql://localhost/dbName?user=example&password=abc";
+
+	/* MySQL connection to a remote database */
+//	private String url = "jdbc:mysql://ipAddress:socket/dbName?user=example&password=abc";
+
+	private String url = "jdbc:mysql://138.49.184.123:3306/";	// URL for server
+	private String dbName = "ssfoley_Company_JDBC";				// TODO: set to your dbName on the server
+	private String username = "ssfoley"; 						// TODO: your username on the server
+	private String password; 									// your password on the server, set in constructor for privacy
+	private Connection connection;								// connection object for running queries
+	
+	/**
+	 * Constructor for the Database class.
+	 * Set the password for the user in this function.
+	 */
+	public Database() {
+		password = ""; //TODO: set this to your password
+	}
+	
+
+	/**
+	 * Construct the url to connect to the database, and establish a connection.
+	 */
+	public void connect() {
+		try {
+			url = url + dbName + "?";
+			connection = DriverManager.getConnection(url, username, password);
+
+		} catch (SQLException e) {
+			System.out.println("Cannot connect!");
+			System.out.println(e);
+		}
+	}
+	
+	/**
+	 * Closes the connection with the database.
+	 */
+	public void disconnect() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			System.out.println("Cannot disconnect!");
+		}
+	}
+	
+	/**
+	 * Runs a query with no parameters using prepared statements.
+	 * @param query : the query to run
+	 * @return the results set from the database
+	 * @throws SQLException
+	 */
+	public ResultSet runQuery(String query) throws SQLException {
+		PreparedStatement stmt = connection.prepareStatement(query);
+		ResultSet results = stmt.executeQuery();
+		return results;
+	}
+	
+	/**
+	 * Looks up an employee based on their ssn. Assumes at most one tuple is returned.
+	 * @param ssn : the ssn of the employee tuple you are interested in
+	 * @return an employee object containing the data from the database, or null if no results were returned.
+	 * @throws SQLException
+	 */
+	public Employee employeeLookup(String ssn) throws SQLException {
+		String query = "SELECT * FROM Employee WHERE SSN = ?";
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setString(1, ssn);
+		ResultSet results = stmt.executeQuery();
+		Employee e = null;
+		// unpack the data into an object for use in Java
+		if(results.next()) {
+			// unpack in order the data came in
+			String res_ssn = results.getString("SSN");
+			double salary = results.getDouble("Salary");
+			String firstName = results.getString("FirstName");
+			String middleName = results.getString("MiddleName");
+			String lastName = results.getString("LastName");
+			
+			e = new Employee(res_ssn, salary, firstName, middleName, lastName);
+		}
+		return e;
+	}
+	
+	/**
+	 * Inserts a new employee into the database. SQL prepared statement is used to insert the tuple into the Employee table.
+	 * @param e : an employee object to add to the database
+	 * @throws SQLException
+	 */
+	public void insertEmployee(Employee e) throws SQLException {
+		String sql = "INSERT INTO Employee (SSN, Salary, FirstName, MiddleName, LastName) VALUES (?, ?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, e.getSsn());
+		stmt.setDouble(2, e.getSalary());
+		stmt.setString(3, e.getFirstName());
+		stmt.setString(4, e.getMiddleName());
+		stmt.setString(5, e.getLastName());
+		int numRowsAffected = stmt.executeUpdate();
+		System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+	
+	/**
+	 * Changes the salary of an employee in the database to the new value salary. Both the database and the object will have the new salary.
+	 * @param e : the employee object that represents the tuple in the database
+	 * @param salary : the new salary
+	 * @throws SQLException
+	 */
+	public void updateEmployeeSalary(Employee e, double salary) throws SQLException {
+		String sql = "UPDATE Employee SET Salary = ? WHERE SSN = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, salary);
+		stmt.setString(2, e.getSsn());
+		stmt.executeUpdate();
+		e.setSalary(salary);
+	}
+	
+	/**
+	 * Delete an employee from the Employee table. Object e is not deleted.
+	 * @param e : Employee object representing the employee to delete
+	 * @return how many rows were deleted from the table.
+	 * @throws SQLException
+	 */
+	public boolean deleteEmployee(Employee e) throws SQLException {
+		String sql = "DELETE FROM Employee WHERE SSN = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, e.getSsn());
+		int numRowsAffected = stmt.executeUpdate();
+		return numRowsAffected > 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
