@@ -49,7 +49,7 @@ public class Customer {
 		return Age;
 	}
 
-	public void getAge(int Age) {
+	public void setAge(int Age) {
 		this.Age = Age;
 	}
 	public double getBudget() {
