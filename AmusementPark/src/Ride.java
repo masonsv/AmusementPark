@@ -1,5 +1,4 @@
 
-
 public class Ride {
 
 	private int RideID;
@@ -94,14 +93,6 @@ public class Ride {
 
 	public void setRideType(String RideType) {
 		this.RideType = RideType;
-	}
-
-	public void setHeightRequirement(int HeightRequirement){
-		this.HeightRequirement = HeightRequirement;
-	}
-
-	public void setCapacity(int Capacity) {
-		this.Capacity = Capacity;
 	}
 
 	@Override

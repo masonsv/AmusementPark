@@ -36,7 +36,7 @@ public class Game {
 		return Price;
 	}
 
-	public void getPrice(double Price) {
+	public void setPrice(double Price) {
 		this.Price = Price;
 	}
 
