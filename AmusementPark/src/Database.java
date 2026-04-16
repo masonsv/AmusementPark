@@ -26,6 +26,15 @@ public class Database {
 	 * 
 	 */
 
+	 /* SQLite connection to a local database */
+//	private String url = "jdbc:sqlite:/Users/asauppe/Documents/teaching/cs364/Company.db";
+
+	/* MySQL connection to a local database */
+//	private String url = "jdbc:mysql://localhost/dbName?user=vagle0060&password=6p-uz5sTF7ErGchZW";
+
+	/* MySQL connection to a remote database */
+//	private String url = "jdbc:mysql://ipAddress:socket/dbName?user=vagle0060&password=6p-uz5sTF7ErGchZW";
+
 	private String url = "jdbc:mysql://138.49.184.123:3306/";	// URL for server
 	private String dbName = "vagle0060_AmusementPark";			// TODO: set to your dbName on the server
 	private String username = "vagle0060"; 						// TODO: your username on the server
@@ -95,6 +104,24 @@ public class Database {
 		System.out.println("Number of rows affected: " + numRowsAffected);
 	}
 
+	public void updateGamePrice(Game g, double price) throws SQLException {
+		String sql = "UPDATE CarnivalGame SET Price = ? WHERE GameID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, price);
+		stmt.setInt(2, g.getGameID());
+		stmt.executeUpdate();
+		g.setPrice(price);
+	}
+
+	public void updateWinOdds(Game g, double winOdds) throws SQLException {
+		String sql = "UPDATE CarnivalGame SET WinOdds = ? WHERE GameID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, winOdds);
+		stmt.setInt(2, g.getGameID());
+		stmt.executeUpdate();
+		g.setPrice(winOdds);
+	}
+
 	/**
 	 * Delete a carnival game from the CarnivalGame table.
 	 * @param g : Game object representing the carnival game to delete
@@ -124,6 +151,24 @@ public class Database {
 		stmt.setInt(5, f.getAmountSold());
 		int numRowsAffected = stmt.executeUpdate();
 		System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+
+	public void updateFoodPrice(FoodStall f, double price) throws SQLException {
+		String sql = "UPDATE FoodStall SET Price = ? WHERE StallID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, price);
+		stmt.setInt(2, f.getStallID());
+		stmt.executeUpdate();
+		f.setPrice(price);
+	}
+
+	public void updateAmountSold(FoodStall f, int amountSold) throws SQLException {
+		String sql = "UPDATE FoodStall SET AmountSold = ? WHERE StallID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, amountSold);
+		stmt.setInt(2, f.getStallID());
+		stmt.executeUpdate();
+		f.setPrice(amountSold);
 	}
 
 	/**
@@ -183,6 +228,7 @@ public class Database {
 		System.out.println("Number of rows affected: " + numRowsAffected);
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Changes the height requirement for the ride
 	 * @param r : the ride object that represents the tuple in the database
@@ -228,6 +274,8 @@ public class Database {
 		r.setRating(rating);
 	}
 
+=======
+>>>>>>> 016872f66d1f829a8536e83d4685317afb0843ff
 	public boolean deleteRide(Ride r) throws SQLException {
 		String sql = "DELETE FROM Ride WHERE RideID = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
