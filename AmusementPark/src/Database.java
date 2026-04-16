@@ -228,7 +228,6 @@ public class Database {
 		System.out.println("Number of rows affected: " + numRowsAffected);
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Changes the height requirement for the ride
 	 * @param r : the ride object that represents the tuple in the database
@@ -274,8 +273,6 @@ public class Database {
 		r.setRating(rating);
 	}
 
-=======
->>>>>>> 016872f66d1f829a8536e83d4685317afb0843ff
 	public boolean deleteRide(Ride r) throws SQLException {
 		String sql = "DELETE FROM Ride WHERE RideID = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -315,7 +312,20 @@ public class Database {
 		c.setHeight(height);
 	}
 
-	
+	/**
+	 * Changes the budget of a customer
+	 * @param c : the customer object that represents the tuple in the database
+	 * @param budget : the new budget
+	 * @throws SQLException
+	 */
+	public void updateCustomerBudget(Customer c, double budget) throws SQLException {
+		String sql = "UPDATE Customer SET Budget = ? WHERE CustomerID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, budget);
+		stmt.setInt(2, c.getCustomerID());
+		stmt.executeUpdate();
+		c.setBudget(budget);
+	}
 
 	public boolean deleteCustomer(Customer c) throws SQLException {
 		String sql = "DELETE FROM Customer WHERE CustomerID = ?";
