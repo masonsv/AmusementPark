@@ -302,14 +302,29 @@ public class Database {
 	 * @param budget : the new budget
 	 * @throws SQLException
 	 */
-		public void updateCustomerBudget(Customer c, double budget) throws SQLException {
-			String sql = "UPDATE Customer SET Budget = ? WHERE CustomerID = ?";
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setDouble(1, budget);
-			stmt.setInt(2, c.getCustomerID());
-			stmt.executeUpdate();
-			c.setBudget(budget);
-		}
+	public void updateCustomerBudget(Customer c, double budget) throws SQLException {
+		String sql = "UPDATE Customer SET Budget = ? WHERE CustomerID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, budget);
+		stmt.setInt(2, c.getCustomerID());
+		stmt.executeUpdate();
+		c.setBudget(budget);
+	}
+
+	/**
+	 * Changes the height of a customer
+	 * @param c : the customer object that represents the tuple in the database
+	 * @param height : the new height
+	 * @throws SQLException
+	 */
+	public void updateCustomerHeight(Customer c, int height) throws SQLException {
+		String sql = "UPDATE Customer SET Height = ? WHERE CustomerID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, height);
+		stmt.setInt(2, c.getCustomerID());
+		stmt.executeUpdate();
+		c.setHeight(height);
+	}
 
 	public boolean deleteCustomer(Customer c) throws SQLException {
 		String sql = "DELETE FROM Customer WHERE CustomerID = ?";
