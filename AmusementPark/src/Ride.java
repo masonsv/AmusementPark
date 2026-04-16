@@ -96,6 +96,14 @@ public class Ride {
 		this.RideType = RideType;
 	}
 
+	public void setHeightRequirement(int HeightRequirement){
+		this.HeightRequirement = HeightRequirement;
+	}
+
+	public void setCapacity(int Capacity) {
+		this.Capacity = Capacity;
+	}
+
 	@Override
 	public String toString() {
 		return "Ride [RideID=" + RideID + ", ThrillLevel=" + ThrillLevel + ", HeightRequirement=" + HeightRequirement + ", Rating=" + Rating

@@ -26,15 +26,6 @@ public class Database {
 	 * 
 	 */
 
-	 /* SQLite connection to a local database */
-//	private String url = "jdbc:sqlite:/Users/asauppe/Documents/teaching/cs364/Company.db";
-
-	/* MySQL connection to a local database */
-//	private String url = "jdbc:mysql://localhost/dbName?user=vagle0060&password=6p-uz5sTF7ErGchZW";
-
-	/* MySQL connection to a remote database */
-//	private String url = "jdbc:mysql://ipAddress:socket/dbName?user=vagle0060&password=6p-uz5sTF7ErGchZW";
-
 	private String url = "jdbc:mysql://138.49.184.123:3306/";	// URL for server
 	private String dbName = "vagle0060_AmusementPark";			// TODO: set to your dbName on the server
 	private String username = "vagle0060"; 						// TODO: your username on the server
@@ -190,6 +181,51 @@ public class Database {
 		stmt.setString(9, r.getRideType());
 		int numRowsAffected = stmt.executeUpdate();
 		System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+
+	/**
+	 * Changes the height requirement for the ride
+	 * @param r : the ride object that represents the tuple in the database
+	 * @param heightReq : the new height requirement
+	 * @throws SQLException
+	 */
+	public void updateRideHeightRequirement(Ride r, int heightReq) throws SQLException {
+		String sql = "UPDATE Ride SET HeightRequirement = ? WHERE RideID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, heightReq);
+		stmt.setInt(2, r.getRideID());
+		stmt.executeUpdate();
+		r.setHeightRequirement(heightReq);
+	}
+
+	/**
+	 * Changes the capacity for the ride
+	 * @param r : the ride object that represents the tuple in the database
+	 * @param capacity : the new capacity
+	 * @throws SQLException
+	 */
+	public void updateRideCapacity(Ride r, int capacity) throws SQLException {
+		String sql = "UPDATE Ride SET Capacity = ? WHERE RideID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, capacity);
+		stmt.setInt(2, r.getRideID());
+		stmt.executeUpdate();
+		r.setCapacity(capacity);
+	}
+
+	/**
+	 * Changes the rating for the ride
+	 * @param r : the ride object that represents the tuple in the database
+	 * @param rating : the new rating
+	 * @throws SQLException
+	 */
+	public void updateRideRating(Ride r, dobule rating) throws SQLException {
+		String sql = "UPDATE Ride SET Rating = ? WHERE RideID = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setDouble(1, rating);
+		stmt.setInt(2, r.getRideID());
+		stmt.executeUpdate();
+		r.setCapacity(rating);
 	}
 
 	public boolean deleteRide(Ride r) throws SQLException {
