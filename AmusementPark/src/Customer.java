@@ -56,7 +56,7 @@ public class Customer {
 		return Budget;
 	}
 
-	public void getBudget(double Budget) {
+	public void setBudget(double Budget) {
 		this.Budget = Budget;
 	}
 

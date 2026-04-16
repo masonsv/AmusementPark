@@ -226,8 +226,7 @@ public class Database {
 		stmt.setString(9, r.getRideType());
 		int numRowsAffected = stmt.executeUpdate();
 		System.out.println("Number of rows affected: " + numRowsAffected);
-	}
-	
+	}	
 	/**
 	 * Changes the height requirement for the ride
 	 * @param r : the ride object that represents the tuple in the database
