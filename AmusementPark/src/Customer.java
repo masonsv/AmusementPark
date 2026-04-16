@@ -84,6 +84,10 @@ public class Customer {
 		this.LastName = LastName;
 	}
 
+	public void setHeight(int Height){
+		this.Height = Height;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [CustomerID=" + CustomerID + ", ThrillLevel=" + ThrillLevel + ", Height=" + Height + ", Age=" + Age

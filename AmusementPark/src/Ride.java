@@ -104,6 +104,10 @@ public class Ride {
 		this.Capacity = Capacity;
 	}
 
+	public void setRating(int Rating){
+		this.Rating = Rating;
+	}
+
 	@Override
 	public String toString() {
 		return "Ride [RideID=" + RideID + ", ThrillLevel=" + ThrillLevel + ", HeightRequirement=" + HeightRequirement + ", Rating=" + Rating
