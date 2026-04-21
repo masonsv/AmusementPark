@@ -10,111 +10,91 @@ public class AmusementPark {
 
 		db.connect();
 		System.out.println("Successfully connected!\n");
-		
-		System.out.println(" (BEFORE) Attempting to read the contents of the Employee table:");
-		read_from_database(db);
 
-		
-		// Add 3 new employees
-//		Employee newHire1 = create_employee_database(db, "434-24-1234", 402000, "Jimmy", "John", "Jones");
-//		Employee newHire2 = create_employee_database(db, "434-24-1235", 312, "Jake", "Lionhart", "Smith");
-//		Employee newHire3 = create_employee_database(db, "434-24-1236", 84354.67, "Issac", "Loves", "Apples");
-		
-		// Change Salary
-//		Employee Jake = read_from_database(db, "123-45-9876");
-	//	update_database(db, Jake, 0.01);
-		// Change Name
-//		Employee Jasper = read_from_database(db, "123-45-6789");
-//		update_database(db, Jasper, "Jasper", "NewMiddleName", "Fforde");
-		
-		// Fire Robin
-		Employee Robin = read_from_database(db, "123-45-6799");
-		delete_database(db, Robin);
-		
-		/* Read query Example */
+		System.out.println("\n\nAttempting to create a new employee:");
+		Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
 
-		// System.out.println("\n\nAttempting to look up an employee using a SSN:");
-		// // read in ssn from user??
-		
-		// System.out.print("Enter the SSN of the employee you want to view: ");
-		// String ssnInput = in.nextLine();
-
-		// Employee someone = read_from_database(db, ssnInput);
-
-		/* Create query Example */
-
-		// System.out.println("\n\nAttempting to create a new employee:");
-		// Employee new_person = create_employee_database(db, "222-22-2222", 60000.00, "J.", "L.", "Collins");
-		
-		/* Update query Example */
-
-		// System.out.println("\n\nAttempting to change someone's salary:");
-		// update_database(db, someone, 78000.00);
-
-		/* Delete query Example */
-
-		// System.out.println("\n\nAttempting to delete someone:");
-		// delete_database(db, someone);
-
-		// System.out.println(" (AFTER) Attempting to read the contents of the Employee table:");
-		// read_from_database(db);
 		
 		db.disconnect();
 		
 	}
 
 	/**
-	 * Queries the database for the contents of the Employee table. The tuples are translated into an array list of Employee objects and then printed.
+	 * Queries the database for the contents of the Ticket table. The tuples are translated into an array list of Ticket objects and then printed.
 	 * @param db : database object to interact with
 	 */
-	public static void read_from_database(Database db){
+	public static void read_from_ticket_database(Database db){
 		try{
-			String query = "SELECT * FROM Employee";
+			String query = "SELECT * FROM Ticket";
 			ResultSet results = db.runQuery(query);
 			 
-			ArrayList<Employee> lst = new ArrayList<>();
+			ArrayList<Ticket> lst = new ArrayList<>();
 			
 			while(results.next()) {
-				String ssn = results.getString("SSN");
-				double salary = results.getDouble("Salary");
-				String firstName = results.getString("FirstName");
-				String middleName;
-				try{
-					middleName = results.getString("MiddleName");
-				}
-				catch(SQLException e){
-					middleName = "";
-				}
-		 		
-				String lastName = results.getString("LastName");
+				String ticketType = results.getString("TicketType");
+				double price = results.getDouble("Price");
 					
-				Employee e = new Employee(ssn, salary, firstName, middleName, lastName);
+				Ticket t = new Ticket(price, ticketType);
 					
-				lst.add(e);
+				lst.add(t);
 			}
 			
-			for(Employee e : lst) {
-				System.out.println(e);
+			for(Ticket t : lst) {
+				System.out.println(t);
 			}
 		} catch(SQLException e) {
-			System.out.println("Something went wrong when reading the contents of the Employee table!");
+			System.out.println("Something went wrong when reading the contents of the Ticket table!");
 			e.printStackTrace();
 		}
 		
 	}
 
 	/**
-	 * Look up an employee using a ssn. Demonstrates packaging and unpacking data on Java and SQL sides, as well as parameterized queries.
+	 * Queries the database for the contents of the CarnivalGame table. The tuples are translated into an array list of Game objects and then printed.
 	 * @param db : database object to interact with
 	 */
-	public static Employee read_from_database(Database db, String ssn){
+	public static void read_from_carnival_game_database(Database db){
+		try{
+			String query = "SELECT * FROM CarnivalGame";
+			ResultSet results = db.runQuery(query);
+			 
+			ArrayList<Game> lst = new ArrayList<>();
+			
+			while(results.next()) {
+
+				int GameID = results.getInt("GameID");	
+				int PrizeID = results.getInt("PrizeID");
+    			double Price = results.getDouble("Price");
+    			double WinOdds = results.getDouble("WinOdds");
+    			String Name = results.getString("GameName");
+					
+				Game g = new Game(GameID, PrizeID, Price, WinOdds, Name);
+					
+				lst.add(g);
+			}
+			
+			for(Game g : lst) {
+				System.out.println(g);
+			}
+		} catch(SQLException e) {
+			System.out.println("Something went wrong when reading the contents of the Ticket table!");
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * Look up an Carnival Game using a GameID.
+	 * @param db : database object to interact with
+	 */
+	public static Game read_from_carival_game_database(Database db, int gameID){
 		/* STEP FOUR: Run a select and get the results */
 		try {
 			// call the database using helper function
-			Employee e = db.employeeLookup(ssn);
+			Game g = db.lookupCarnivalGame(gameID);
 			// print
-		 	System.out.println(e.toString());
-			return e;
+		 	System.out.println(g.toString());
+			return g;
 		 		 
 		} catch(SQLException e) {
 			System.out.println("Something went wrong when looking up an employee by ssn!");
@@ -125,52 +105,37 @@ public class AmusementPark {
 	}
 
 	/**
-	 * Creates a new Employee object and adds a tuple to the Employee table.
+	 * Creates a new Carnival Game object and adds a tuple to the Carnival Game table.
 	 * @param db : database object to interact with
-	 * @param ssn
-	 * @param salary
-	 * @param fname
-	 * @param mname
-	 * @param lname
-	 * @return the Employee object with the parameters as specified
+	 * @param GameID
+	 * @param PrizeID
+	 * @param Price
+	 * @param WinOdds
+	 * @param GameName
+	 * @return the Carnival Game object with the parameters as specified
 	 */
-	public static Employee create_employee_database(Database db, String ssn, double salary, String fname, String mname, String lname){
-		Employee e = new Employee(ssn, salary, fname, mname, lname);
+	public static Game create_carnival_game_database(Database db, int GameID, int PrizeID, double Price, double WinOdds, String GameName){
+		Game g = new Game(GameID, PrizeID, Price, WinOdds, GameName);
 		try {
-			db.insertEmployee(e);
+			db.insertCarnivalGame(g);
 		} catch(SQLException ex) {
-			System.out.println("Something went wrong when inserting a new employee");
+			System.out.println("Something went wrong when inserting a new carnival game");
 			ex.printStackTrace();
 		}
-		return e;
+		return g;
 	}
 
 	/**
-	 * Updates the salary of the employee tuple
+	 * Updates the price of the carnival game tuple
 	 * @param db : database object to interact with
-	 * @param e : Employee object that represents the tuple to update
-	 * @param salary : new salary
+	 * @param g : Carnival Game object that represents the tuple to update
+	 * @param price : new price
 	 */
-	public static void update_database(Database db, Employee e, double salary){
+	public static void update_carnival_game_database(Database db, Game g, double price){
 		try {
-			db.updateEmployeeSalary(e, salary);
+			db.updateGamePrice(g, price);
 		} catch(SQLException ex) {
-			System.out.println("Something went wrong when updating a salary");
-			ex.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Updates the salary of the employee tuple
-	 * @param db : database object to interact with
-	 * @param e : Employee object that represents the tuple to update
-	 * @param firstName, middleName, lastName : new name
-	 */
-	public static void update_database(Database db, Employee e, String firstName, String middleName, String lastName){
-		try {
-			db.updateEmployeeName(e, firstName, middleName, lastName);
-		} catch(SQLException ex) {
-			System.out.println("Something went wrong when updating a salary");
+			System.out.println("Something went wrong when updating a price");
 			ex.printStackTrace();
 		}
 	}
@@ -180,9 +145,9 @@ public class AmusementPark {
 	 * @param db : database object to interact with
 	 * @param e : Employee object that represents the tuple to delete
 	 */
-	public static void delete_database(Database db, Employee e){
+	public static void delete_carnival_game_database(Database db, Game g){
 		try {
-			//db.deleteEmployee(e);
+			db.deleteCarnivalGame(g);
 		} catch(SQLException ex) {
 			System.out.println("Something went wrong when deleting an employee");
 			ex.printStackTrace();

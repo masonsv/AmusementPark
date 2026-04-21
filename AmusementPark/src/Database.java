@@ -104,6 +104,31 @@ public class Database {
 		System.out.println("Number of rows affected: " + numRowsAffected);
 	}
 
+	/**
+	 *  Carnival Game lookup
+	 *  @param gameID : gameID for the carnvial game
+	 * 	@return a game object
+	 * 	@throws SQLException
+	 */
+	public Game lookupCarnivalGame(int gameID) throws SQLException{
+		String query = "SELECT * FROM CarnivalGame WHERE gameID = ?";
+		PreparedStatement stmt = connection.prepareStatement(query);
+		ResultSet results = stmt.executeQuery();
+		Game g = null;
+		
+		if(results.next()) {
+			
+			int GameID = results.getInt("GameID");	
+			int PrizeID = results.getInt("PrizeID");
+    		double Price = results.getDouble("Price");
+    		double WinOdds = results.getDouble("WinOdds");
+    		String Name = results.getString("GameName");
+			
+			g = new Game(GameID, PrizeID, Price, WinOdds, Name);
+		}
+		return g;
+	}
+
 	public void updateGamePrice(Game g, double price) throws SQLException {
 		String sql = "UPDATE CarnivalGame SET Price = ? WHERE GameID = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
