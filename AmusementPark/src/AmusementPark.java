@@ -12,12 +12,24 @@ public class AmusementPark {
 		System.out.println("Successfully connected!\n");
 
 		System.out.println("\n\nAttempting to create a new employee:");
-		Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
-
+		//Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
+		Customer cust = create_customer_database(db, 1, 10, 60, 72, 
+												 600.00, "Senior", "Bob", "Kirk");
 		
 		db.disconnect();
 		
 	}
+	/* 
+	private int CustomerID;
+	private int ThrillLevel;
+	private int Height;    //inches
+	private int Age;
+	private double Budget; //$xxx.xx
+	private String TicketType;
+	private String FirstName;
+	private String LastName;
+	*/
+	
 
 	/**
 	 * Queries the database for the contents of the Ticket table. The tuples are translated into an array list of Ticket objects and then printed.
