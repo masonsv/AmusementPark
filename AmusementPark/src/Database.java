@@ -256,7 +256,7 @@ public class Database {
 		return numRowsAffected > 0;
 	}
 
-	public void insertRide(Ride r) throws SQLException{
+	public void insertRide(Ride r) throws SQLException {
 		String sql = "INSERT INTO Ride (RideID, ThrillLevel, HeightRequirement, Rating, Capacity, RideTime,"
 					+ " AvgWaitTime, RideName, RideType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -272,6 +272,29 @@ public class Database {
 		int numRowsAffected = stmt.executeUpdate();
 		System.out.println("Number of rows affected: " + numRowsAffected);
 	}	
+
+	public Ride lookupRide(int RideID) throws SQLException{
+		String query = "SELECT * FROM Ride WHERE RideID = ?";
+		PreparedStatement stmt = connection.prepareStatement(query);
+		ResultSet results = stmt.executeQuery();
+		Ride r = null;
+		
+		if(results.next()) {
+			int ThrillLevel = results.getInt("ThrillLevel");
+			int HeightRequirement = results.getInt("HeightRequirement");
+			int Rating = results.getInt("Rating");
+			int Capacity = results.getInt("Capacity");
+			int RideTime = results.getInt("RideTime");
+    		double AvgWaitTime = results.getDouble("AvgWaitTime");
+    		String RideName = results.getString("RideName");
+			String RideType = results.getString("RideType");
+
+			r = new Ride(RideID, ThrillLevel, HeightRequirement, Rating, Capacity, 
+				         RideTime, AvgWaitTime, RideName, RideType);
+		}
+		return r;
+	}
+
 	/**
 	 * Changes the height requirement for the ride
 	 * @param r : the ride object that represents the tuple in the database
