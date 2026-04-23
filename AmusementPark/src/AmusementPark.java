@@ -14,7 +14,7 @@ public class AmusementPark {
 		System.out.println("\n\nAttempting to create a new employee:");
 		Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
 
-		
+
 		db.disconnect();
 		
 	}
@@ -143,7 +143,7 @@ public class AmusementPark {
 	/**
 	 * Deletes the tuple represented by the object e
 	 * @param db : database object to interact with
-	 * @param e : Employee object that represents the tuple to delete
+	 * @param g : Carnival Game object that represents the tuple to delete
 	 */
 	public static void delete_carnival_game_database(Database db, Game g){
 		try {
