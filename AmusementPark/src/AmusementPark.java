@@ -155,7 +155,8 @@ public class AmusementPark {
 	}
 
 	/**
-	 * Queries the database for the contents of the Customer table. The tuples are translated into an array list of Game objects and then printed.
+	 * Queries the database for the contents of the Customer table. The tuples are translated into an array list 
+	 * of Customer objects and then printed.
 	 * @param db : database object to interact with
 	 */
 	public static void read_from_customer_database(Database db){
@@ -191,17 +192,17 @@ public class AmusementPark {
 		
 	}
 		/**
-	 * Look up an Carnival Game using a GameID.
+	 * Look up an Customer using a CustomerID.
 	 * @param db : database object to interact with
 	 */
-		public static Game read_from_customer_database(Database db, int CustomerID){
+		public static Customer read_from_customer_database(Database db, int CustomerID){
 			/* STEP FOUR: Run a select and get the results */
 			try {
 				// call the database using helper function
 				Customer c = db.lookupCustomer(CustomerID);
 				// print
-				 System.out.println(g.toString());
-				return g;
+				 System.out.println(c.toString());
+				return c;
 					  
 			} catch(SQLException e) {
 				System.out.println("Something went wrong when looking up an employee by ssn!");
@@ -212,7 +213,7 @@ public class AmusementPark {
 		}
 	
 		/**
-		 * Creates a new Carnival Game object and adds a tuple to the Carnival Game table.
+		 * Creates a new Customer object and adds a tuple to the Customer table.
 		 * @param db : database object to interact with
 		 * @param GameID
 		 * @param PrizeID
@@ -221,8 +222,9 @@ public class AmusementPark {
 		 * @param GameName
 		 * @return the Carnival Game object with the parameters as specified
 		 */
-		public static Game create_carnival_game_database(Database db, int GameID, int PrizeID, double Price, double WinOdds, String GameName){
-			Game g = new Game(GameID, PrizeID, Price, WinOdds, GameName);
+		public static Game create_customer_database(Database db, int CustomerID, int ThrillLevel, int Height, 
+													int Age, double Budget, String FirstName, String LastName){
+			Game C = new Game(GameID, PrizeID, Price, WinOdds, GameName);
 			try {
 				db.insertCarnivalGame(g);
 			} catch(SQLException ex) {
