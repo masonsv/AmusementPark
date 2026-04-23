@@ -298,16 +298,46 @@ public class AmusementPark {
 	}
 
 	/**
-	 * Updates the price of the ride tuple
+	 * Updates the height req of the ride tuple
 	 * @param db : database object to interact with
-	 * @param r : Carnival Game object that represents the tuple to update
-	 * @param price : new price
+	 * @param r : Ride Game object that represents the tuple to update
+	 * @param height : new hieght req
 	 */
 	public static void update_ride_height_database(Database db, Ride r, int height){
 		try {
 			db.updateRideHeightRequirement(r, height);
 		} catch(SQLException ex) {
-			System.out.println("Something went wrong when updating a price");
+			System.out.println("Something went wrong when updating a height requirement");
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * Updates the height req of the ride tuple
+	 * @param db : database object to interact with
+	 * @param r : Ride Game object that represents the tuple to update
+	 * @param capacity : new capacity
+	 */
+	public static void update_ride_capacity_database(Database db, Ride r, int capacity){
+		try {
+			db.updateRideCapacity(r, capacity);
+		} catch(SQLException ex) {
+			System.out.println("Something went wrong when updating a capacity");
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * Updates the rating of the ride tuple
+	 * @param db : database object to interact with
+	 * @param r : Ride Game object that represents the tuple to update
+	 * @param rating : new rating
+	 */
+	public static void update_ride_rating_database(Database db, Ride r, int rating){
+		try {
+			db.updateRideRating(r, rating);
+		} catch(SQLException ex) {
+			System.out.println("Something went wrong when updating a rating");
 			ex.printStackTrace();
 		}
 	}
