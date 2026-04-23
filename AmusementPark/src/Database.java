@@ -178,6 +178,24 @@ public class Database {
 		System.out.println("Number of rows affected: " + numRowsAffected);
 	}
 
+	public FoodStall lookupFoodStall(int StallID) throws SQLException{
+		String query = "SELECT * FROM FoodStall WHERE StallID = ?";
+		PreparedStatement stmt = connection.prepareStatement(query);
+		ResultSet results = stmt.executeQuery();
+		FoodStall f = null;
+		
+		if(results.next()) {
+			
+			int AmountSold = results.getInt("AmountSold");
+    		double Price = results.getDouble("Price");
+    		String Name = results.getString("Name");
+			String FoodType = results.getString("FoodType");
+
+			f = new FoodStall(StallID, AmountSold, Price, Name, FoodType);
+		}
+		return f;
+	}
+
 	public void updateFoodPrice(FoodStall f, double price) throws SQLException {
 		String sql = "UPDATE FoodStall SET Price = ? WHERE StallID = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
