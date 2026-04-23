@@ -143,7 +143,7 @@ public class AmusementPark {
 			return f;
 		 		 
 		} catch(SQLException e) {
-			System.out.println("Something went wrong when looking up an carnival game by gameID!");
+			System.out.println("Something went wrong when looking up an food stal by StallID!");
 			e.printStackTrace();
 			return null;
 		}

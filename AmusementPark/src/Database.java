@@ -113,6 +113,7 @@ public class Database {
 	public Game lookupCarnivalGame(int gameID) throws SQLException{
 		String query = "SELECT * FROM CarnivalGame WHERE gameID = ?";
 		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setInt(1, gameID);
 		ResultSet results = stmt.executeQuery();
 		Game g = null;
 		
@@ -181,6 +182,7 @@ public class Database {
 	public FoodStall lookupFoodStall(int StallID) throws SQLException{
 		String query = "SELECT * FROM FoodStall WHERE StallID = ?";
 		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setInt(1, StallID);
 		ResultSet results = stmt.executeQuery();
 		FoodStall f = null;
 		
@@ -337,6 +339,28 @@ public class Database {
 		stmt.setString(8, c.getLastName());
 		int numRowsAffected = stmt.executeUpdate();
 		System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+
+	public Customer lookupCustomer(int CustomerID) throws SQLException{
+		String query = "SELECT * FROM Customer WHERE CustomerID = ?";
+		PreparedStatement stmt = connection.prepareStatement(query);
+		stmt.setInt(1, CustomerID);
+		ResultSet results = stmt.executeQuery();
+		Customer c = null;
+		
+		if(results.next()) {
+			
+			int ThrillLevel = results.getInt("ThrillLevel");
+			int Height = results.getInt("Height"); 
+			int Age = results.getInt("Age");
+			double Budget = results.getDouble("Budget"); 
+			String TicketType = results.getString("TicketType");
+			String FirstName = results.getString("FirstName");
+			String LastName = results.getString("LastName");
+
+			c = new Customer(CustomerID, ThrillLevel, Height, Age, Budget, TicketType, FirstName, LastName);
+		}
+		return c;
 	}
 
 		/**
