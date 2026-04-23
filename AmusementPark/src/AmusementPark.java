@@ -12,12 +12,24 @@ public class AmusementPark {
 		System.out.println("Successfully connected!\n");
 
 		System.out.println("\n\nAttempting to create a new employee:");
-		Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
-
+		//Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
+		Customer cust = create_customer_database(db, 1, 10, 60, 72, 
+												 600.00, "Senior", "Bob", "Kirk");
 		
 		db.disconnect();
 		
 	}
+	/* 
+	private int CustomerID;
+	private int ThrillLevel;
+	private int Height;    //inches
+	private int Age;
+	private double Budget; //$xxx.xx
+	private String TicketType;
+	private String FirstName;
+	private String LastName;
+	*/
+	
 
 	/**
 	 * Queries the database for the contents of the Ticket table. The tuples are translated into an array list of Ticket objects and then printed.
@@ -480,50 +492,81 @@ public class AmusementPark {
 		/**
 		 * Creates a new Customer object and adds a tuple to the Customer table.
 		 * @param db : database object to interact with
-		 * @param GameID
-		 * @param PrizeID
-		 * @param Price
-		 * @param WinOdds
-		 * @param GameName
-		 * @return the Carnival Game object with the parameters as specified
+		 * @param CustomerID
+		 * @param ThrillLevel
+		 * @param Height
+		 * @param Age
+		 * @param Budget
+		 * @param TicketType
+		 * @param FirstName
+		 * @param LastName
+		 * @return the Customer object with the parameters as specified
 		 */
-		public static Game create_customer_database(Database db, int CustomerID, int ThrillLevel, int Height, 
-													int Age, double Budget, String FirstName, String LastName){
-			Game C = new Game(GameID, PrizeID, Price, WinOdds, GameName);
+		public static Customer create_customer_database(Database db, int CustomerID, int ThrillLevel, int Height, 
+													int Age, double Budget, String TicketType, String FirstName, String LastName){
+			Customer c = new Customer(CustomerID, ThrillLevel, Height, Age, Budget, TicketType, FirstName, LastName);
 			try {
-				db.insertCarnivalGame(g);
+				db.insertCustomer(c);
 			} catch(SQLException ex) {
 				System.out.println("Something went wrong when inserting a new carnival game");
 				ex.printStackTrace();
 			}
-			return g;
+			return c;
 		}
 	
 		/**
-		 * Updates the price of the carnival game tuple
+		 * Updates the budget of a Customer tuple
 		 * @param db : database object to interact with
-		 * @param g : Carnival Game object that represents the tuple to update
-		 * @param price : new price
+		 * @param c : Customer object that represents the tuple to update
+		 * @param budget : new budget
 		 */
-		public static void update_carnival_game_database(Database db, Game g, double price){
+		public static void update_customer_budget_database(Database db, Customer c, double budget){
 			try {
-				db.updateGamePrice(g, price);
+				db.updateCustomerBudget(c, budget);
 			} catch(SQLException ex) {
-				System.out.println("Something went wrong when updating a price");
+				System.out.println("Something went wrong when updating a budget");
+				ex.printStackTrace();
+			}
+		}
+		/**
+		 * Updates the age of a Customer tuple
+		 * @param db : database object to interact with
+		 * @param c : Customer object that represents the tuple to update
+		 * @param age : new age
+		 */
+		public static void update_customer_age_database(Database db, Customer c, int age){
+			try {
+				db.updateCustomerAge(c, age);
+			} catch(SQLException ex) {
+				System.out.println("Something went wrong when updating a age");
+				ex.printStackTrace();
+			}
+		}
+		/**
+		 * Updates the height of a Customer tuple
+		 * @param db : database object to interact with
+		 * @param c : Customer object that represents the tuple to update
+		 * @param height : new height
+		 */
+		public static void update_customer_height_database(Database db, Customer c, int height){
+			try {
+				db.updateCustomerHeight(c, height);
+			} catch(SQLException ex) {
+				System.out.println("Something went wrong when updating a height");
 				ex.printStackTrace();
 			}
 		}
 	
 		/**
-		 * Deletes the tuple represented by the object e
+		 * Deletes the tuple represented by the object c
 		 * @param db : database object to interact with
-		 * @param e : Employee object that represents the tuple to delete
+		 * @param c : Customer object that represents the tuple to delete
 		 */
-		public static void delete_carnival_game_database(Database db, Game g){
+		public static void delete_customer_database(Database db, Customer c){
 			try {
-				db.deleteCarnivalGame(g);
+				db.deleteCustomer(c);
 			} catch(SQLException ex) {
-				System.out.println("Something went wrong when deleting an employee");
+				System.out.println("Something went wrong when deleting a customer");
 				ex.printStackTrace();
 			}
 		}
