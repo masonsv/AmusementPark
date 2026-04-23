@@ -95,21 +95,6 @@ public class Ride {
 		this.RideType = RideType;
 	}
 
-<<<<<<< HEAD
-	public void setHeightRequirement(int HeightRequirement){
-		this.HeightRequirement = HeightRequirement;
-	}
-
-	public void setCapacity(int Capacity) {
-		this.Capacity = Capacity;
-	}
-
-	public void setRating(int Rating){
-		this.Rating = Rating;
-	}
-
-=======
->>>>>>> 016872f66d1f829a8536e83d4685317afb0843ff
 	@Override
 	public String toString() {
 		return "Ride [RideID=" + RideID + ", ThrillLevel=" + ThrillLevel + ", HeightRequirement=" + HeightRequirement + ", Rating=" + Rating

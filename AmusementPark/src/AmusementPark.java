@@ -83,7 +83,7 @@ public class AmusementPark {
 	}
 
 	/**
-	 * Deletes the tuple represented by the object e
+	 * Deletes the tuple represented by the object t
 	 * @param db : database object to interact with
 	 * @param t : tikcet object that represents the tuple to delete
 	 */
@@ -163,6 +163,155 @@ public class AmusementPark {
 			ex.printStackTrace();
 		}
 		return f;
+	}
+
+	
+	/**
+	 * Updates the price of the food stall tuple
+	 * @param db : database object to interact with
+	 * @param f : food stall object that represents the tuple to update
+	 * @param price : new price
+	 */
+	public static void update_foodstall_database(Database db, FoodStall f, double price){
+		try {
+			db.updateFoodPrice(f, price);
+		} catch(SQLException ex) {
+			System.out.println("Something went wrong when updating a price");
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * Updates the amoutn sold of the food stall tuple
+	 * @param db : database object to interact with
+	 * @param f : food stall object that represents the tuple to update
+	 * @param amtSold : new anount
+	 */
+	public static void update_foodstall_database(Database db, FoodStall f, int amtSold){
+		try {
+			db.updateAmountSold(f, amtSold);
+		} catch(SQLException ex) {
+			System.out.println("Something went wrong when updating a amount sold");
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * Deletes the tuple represented by the object f
+	 * @param db : database object to interact with
+	 * @param f : foodstall object that represents the tuple to delete
+	 */
+	public static void delete_foodstall_database(Database db, FoodStall f){
+		try {
+			db.deleteFoodStall(f);
+		} catch(SQLException ex) {
+			System.out.println("Something went wrong when deleting a food stall");
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * Queries the database for the contents of the Ride table. The tuples are translated into an array list of Ride objects and then printed.
+	 * @param db : database object to interact with
+	 */
+	public static void read_from_ride_database(Database db){
+		try{
+			String query = "SELECT * FROM Ride";
+			ResultSet results = db.runQuery(query);
+			 
+			ArrayList<Ride> lst = new ArrayList<>();
+			
+			while(results.next()) {
+
+				int RideID = results.getInt("RideID");
+				int ThrillLevel = results.getInt("ThrillLevel");
+				int HeightRequirement = results.getInt("HeightRequirement");   
+				int Rating = results.getInt("Rating");
+    			int Capacity = results.getInt("Capacity");
+    			int RideTime = results.getInt("RideTime");
+    			double AvgWaitTime = results.getDouble("AvgWaitTime");
+    			String RideName = results.getString("RideName");
+				String RideType = results.getString("RideType");
+					
+				Ride r = new Ride(RideID, ThrillLevel, HeightRequirement, Rating, Capacity, RideTime, AvgWaitTime, RideName, RideType);
+					
+				lst.add(r);
+			}
+			
+			for(Ride r : lst) {
+				System.out.println(r);
+			}
+		} catch(SQLException e) {
+			System.out.println("Something went wrong when reading the contents of the Ride table!");
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * Look up an Carnival Game using a GameID.
+	 * @param db : database object to interact with
+	 */
+	public static Ride read_from_ride_database(Database db, int RideID){
+		
+		try {
+			
+			Ride r = db.lookupRide(RideID);
+			
+		 	System.out.println(r.toString());
+			return r;
+		 		 
+		} catch(SQLException e) {
+			System.out.println("Something went wrong when looking up an ride by rideID!");
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
+	/**
+	 * Creates a new Ride object and adds a tuple to the Ride table.
+	 * @param db : database object to interact with
+	 * @return the ride object with the parameters as specified
+	 */
+	public static Ride create_carnival_game_database(Database db, int RideID, int ThrillLevel, int HeightRequirement, int Rating, int Capacity, int RideTime, double AvgWaitTime, String RideName, String RideType){
+		Ride r = new Ride(RideID, ThrillLevel, HeightRequirement, Rating, Capacity, RideTime, AvgWaitTime, RideName, RideType);
+		try {
+			db.insertRide(r);
+		} catch(SQLException ex) {
+			System.out.println("Something went wrong when inserting a new carnival game");
+			ex.printStackTrace();
+		}
+		return r;
+	}
+
+	/**
+	 * Updates the price of the carnival game tuple
+	 * @param db : database object to interact with
+	 * @param g : Carnival Game object that represents the tuple to update
+	 * @param price : new price
+	 */
+	public static void update_ride_database(Database db, Game g, double price){
+		try {
+			db.updateGamePrice(g, price);
+		} catch(SQLException ex) {
+			System.out.println("Something went wrong when updating a price");
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * Deletes the tuple represented by the object e
+	 * @param db : database object to interact with
+	 * @param g : Carnival Game object that represents the tuple to delete
+	 */
+	public static void delete_ride_database(Database db, Game g){
+		try {
+			db.deleteCarnivalGame(g);
+		} catch(SQLException ex) {
+			System.out.println("Something went wrong when deleting an carnival game");
+			ex.printStackTrace();
+		}
 	}
 
 	/**
