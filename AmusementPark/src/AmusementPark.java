@@ -291,21 +291,21 @@ public class AmusementPark {
 		try {
 			db.insertRide(r);
 		} catch(SQLException ex) {
-			System.out.println("Something went wrong when inserting a new carnival game");
+			System.out.println("Something went wrong when inserting a new ride");
 			ex.printStackTrace();
 		}
 		return r;
 	}
 
 	/**
-	 * Updates the price of the carnival game tuple
+	 * Updates the price of the ride tuple
 	 * @param db : database object to interact with
-	 * @param g : Carnival Game object that represents the tuple to update
+	 * @param r : Carnival Game object that represents the tuple to update
 	 * @param price : new price
 	 */
-	public static void update_ride_database(Database db, Game g, double price){
+	public static void update_ride_height_database(Database db, Ride r, int height){
 		try {
-			db.updateGamePrice(g, price);
+			db.updateRideHeightRequirement(r, height);
 		} catch(SQLException ex) {
 			System.out.println("Something went wrong when updating a price");
 			ex.printStackTrace();

@@ -44,14 +44,14 @@ public class Ride {
 		return HeightRequirement;
 	}
 
-	public void getHeightRequirement(int HeightRequirement) {
+	public void setHeightRequirement(int HeightRequirement) {
 		this.HeightRequirement = HeightRequirement;
 	}
 	public int getRating() {
 		return Rating;
 	}
 
-	public void getRating(int Rating) {
+	public void setRating(int Rating) {
 		this.Rating = Rating;
 	}
 
@@ -59,7 +59,7 @@ public class Ride {
 		return Capacity;
 	}
 
-	public void getCapacity(int Capacity) {
+	public void setCapacity(int Capacity) {
 		this.Capacity = Capacity;
 	}
 
