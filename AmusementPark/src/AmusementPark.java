@@ -13,8 +13,8 @@ public class AmusementPark {
 
 		System.out.println("\n\nAttempting to create a new employee:");
 		//Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
-		Customer cust = create_customer_database(db, 1, 10, 60, 72, 
-												 600.00, "Senior", "Bob", "Kirk");
+	//	Ticket ticket = create_ticket_database(db, "Senior", 50);
+		Customer cust = create_customer_database(db, 1, 10, 60, 72, 600.00, "General Admission", "Bob", "Kirk");
 		
 		db.disconnect();
 		
@@ -532,13 +532,12 @@ public class AmusementPark {
 		 * @param LastName
 		 * @return the Customer object with the parameters as specified
 		 */
-		public static Customer create_customer_database(Database db, int CustomerID, int ThrillLevel, int Height, 
-													int Age, double Budget, String TicketType, String FirstName, String LastName){
+		public static Customer create_customer_database(Database db, int CustomerID, int ThrillLevel, int Height, int Age, double Budget, String TicketType, String FirstName, String LastName){
 			Customer c = new Customer(CustomerID, ThrillLevel, Height, Age, Budget, TicketType, FirstName, LastName);
 			try {
 				db.insertCustomer(c);
 			} catch(SQLException ex) {
-				System.out.println("Something went wrong when inserting a new carnival game");
+				System.out.println("Something went wrong when inserting a new customer");
 				ex.printStackTrace();
 			}
 			return c;

@@ -350,7 +350,7 @@ public class Database {
 	
 	public void insertCustomer(Customer c) throws SQLException{
 		String sql = "INSERT INTO Customer (CustomerID, ThrillLevel, Height, Age, Budget, TicketType,"
-					+ " FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ " FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setInt(1, c.getCustomerID());
 		stmt.setInt(2, c.getThrillLevel());
