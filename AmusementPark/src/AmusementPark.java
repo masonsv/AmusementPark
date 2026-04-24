@@ -14,7 +14,7 @@ public class AmusementPark {
 		System.out.println("\n\nAttempting to create a new employee:");
 		//Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
 	//	Ticket ticket = create_ticket_database(db, "Senior", 50);
-		Customer cust = create_customer_database(db, 1, 10, 60, 72, 600.00, "General Admission", "Bob", "Kirk");
+		//Customer cust = create_customer_database(db, 1, 10, 60, 72, 600.00, "General Admission", "Bob", "Kirk");
 		
 		db.disconnect();
 		
@@ -286,7 +286,7 @@ public class AmusementPark {
 	 * @param db : database object to interact with
 	 * @return the ride object with the parameters as specified
 	 */
-	public static Ride create_carnival_game_database(Database db, int RideID, int ThrillLevel, int HeightRequirement, int Rating, int Capacity, int RideTime, double AvgWaitTime, String RideName, String RideType){
+	public static Ride create_ride_database(Database db, int RideID, int ThrillLevel, int HeightRequirement, int Rating, int Capacity, int RideTime, double AvgWaitTime, String RideName, String RideType){
 		Ride r = new Ride(RideID, ThrillLevel, HeightRequirement, Rating, Capacity, RideTime, AvgWaitTime, RideName, RideType);
 		try {
 			db.insertRide(r);
@@ -345,13 +345,13 @@ public class AmusementPark {
 	/**
 	 * Deletes the tuple represented by the object e
 	 * @param db : database object to interact with
-	 * @param g : Carnival Game object that represents the tuple to delete
+	 * @param r : Carnival Game object that represents the tuple to delete
 	 */
-	public static void delete_ride_database(Database db, Game g){
+	public static void delete_ride_database(Database db, Ride r){
 		try {
-			db.deleteCarnivalGame(g);
+			db.deleteRide(r);
 		} catch(SQLException ex) {
-			System.out.println("Something went wrong when deleting an carnival game");
+			System.out.println("Something went wrong when deleting a ride");
 			ex.printStackTrace();
 		}
 	}
