@@ -190,7 +190,7 @@ public class Database {
 			
 			int AmountSold = results.getInt("AmountSold");
     		double Price = results.getDouble("Price");
-    		String Name = results.getString("Name");
+    		String Name = results.getString("StallName");
 			String FoodType = results.getString("FoodType");
 
 			f = new FoodStall(StallID, AmountSold, Price, Name, FoodType);

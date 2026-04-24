@@ -58,7 +58,7 @@ public class FoodStall {
 
 	@Override
 	public String toString() {
-		return "FoodStall [StallID=" + StallID + ", AmountSold=" + AmountSold + ", Price=" + Price + ", Name=" + Name
+		return "FoodStall [StallID=" + StallID + ", AmountSold=" + AmountSold + ", Price=" + Price + ", StallName=" + Name
 				+ ", FoodType=" + FoodType + "]";
 	}
 	
