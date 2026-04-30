@@ -438,5 +438,27 @@ public class Database {
 		int numRowsAffected = stmt.executeUpdate();
 		return numRowsAffected > 0;
 	}
-		
+
+	/* Advanced Queries */
+	
+	/* Average Ride Rating */
+	public ResultSet averageRideRating() throws SQLException {
+		String sql = "SELECT AVG(Rating) FROM Ride";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet averageRideRating = stmt.executeQuery();
+		return averageRideRating;
+	}
+
+	/* What Ride Classification has the Best Rating */
+	public ResultSet bestRatedTypeOfRide() throws SQLException {
+		String sql = "SELECT "
+	}
+	/* NEED GROUP 2 QUERY */
+
+	/* Find the 5 Lowest Rated Rides */
+
+	/* Rides With Above Average Wait Times */
+
+	/* NEED GROUP 3 QUERY */
+
 }
