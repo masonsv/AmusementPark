@@ -76,6 +76,41 @@ CREATE TABLE EAT_AT (
     CONSTRAINT fk_eatat_customer FOREIGN KEY (CustomerID) References Customer (CustomerID)
 );
 
+CREATE TABLE RIDE_ON (
+    RideOnID int PRIMARY KEY AUTO_INCREMENT,
+    CustomerID int NOT NULL,
+    RideID int NOT NULL,
+    RideDate datetime DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_rideon_customer FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+    CONSTRAINT fk_rideon_ride FOREIGN KEY (RideID) REFERENCES Ride(RideID)
+);
+
+CREATE TABLE BUY_TICKET (
+    SaleID int PRIMARY KEY AUTO_INCREMENT,
+    CustomerID int NOT NULL,
+    TicketType varchar(255) NOT NULL,
+    PurchaseDate datetime DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_ticketsale_customer FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+    CONSTRAINT fk_ticketsale_ticket FOREIGN KEY (TicketType) REFERENCES Ticket(TicketType)
+);
+
+CREATE TABLE EAT_AT (
+    EatID int PRIMARY KEY AUTO_INCREMENT,
+    CustomerID int NOT NULL,
+    StallID int NOT NULL,
+    EatDate datetime DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_eatat_customer FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+    CONSTRAINT fk_eatat_restaurant FOREIGN KEY (StallID) REFERENCES FoodStall(StallID)
+);
+
+CREATE TABLE PLAY (
+	PlayID int PRIMARY KEY AUTO_INCREMENT,
+	CustomerID int,
+    GameID int,
+    PlayDate datetime DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_game_id FOREIGN KEY (GameID) REFERENCES CarnivalGame (GameID),
+    CONSTRAINT fk_play_customer FOREIGN KEY (CustomerID) References Customer (CustomerID)
+);
 
 #DROP TABLE Customer;
 #DROP TABLE Ride;
