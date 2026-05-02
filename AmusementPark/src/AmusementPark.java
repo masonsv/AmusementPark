@@ -1,6 +1,7 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.text.DecimalFormat;
 
 public class AmusementPark {
 
@@ -11,7 +12,8 @@ public class AmusementPark {
 		db.connect();
 		System.out.println("Successfully connected!\n");
 
-		System.out.println("\n\nAttempting to create a new employee:");
+		System.out.println("Findind best rated ride types");
+		bestRatedTypeOfRide(db);
 		//Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
 	//	Ticket ticket = create_ticket_database(db, "Senior", 50);
 		//Customer cust = create_customer_database(db, 1, 10, 60, 72, 600.00, "General Admission", "Bob", "Kirk");
@@ -597,6 +599,33 @@ public class AmusementPark {
 			} catch(SQLException ex) {
 				System.out.println("Something went wrong when deleting a customer");
 				ex.printStackTrace();
+			}
+		}
+
+		/* Advanced Queries */
+		public static void averageRideRating(){
+
+		}
+
+		public static void bestRatedTypeOfRide(Database db){
+			try{
+				DecimalFormat df = new DecimalFormat("0.00");
+				ResultSet results = db.bestRatedTypeOfRide();
+				
+				while(results.next()) {
+
+					String RideType = results.getString("RideType");
+					double AvgRatng = results.getDouble("AvgRating");
+
+					if (RideType.equals("Roller Coaster")){
+						System.out.println("RideType: [" + RideType + "]\tAverage Rating: [" + df.format(AvgRatng) + "]");
+					}else{
+						System.out.println("RideType: [" + RideType + "]\t\tAverage Rating: [" + df.format(AvgRatng) + "]");
+					}
+				}
+			} catch(SQLException e) {
+				System.out.println("Something went wrong when executing best rated type of ride query!");
+				e.printStackTrace();
 			}
 		}
 

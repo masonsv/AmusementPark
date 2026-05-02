@@ -439,6 +439,22 @@ public class Database {
 		return numRowsAffected > 0;
 	}
 
+	public void insertBUY_TICKET(Customer c) throws SQLException{
+		String sql = "INSERT INTO BUY_TICKET (CustomerID, ThrillLevel, Height, Age, Budget, TicketType,"
+					+ " FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, c.getCustomerID());
+		stmt.setInt(2, c.getThrillLevel());
+		stmt.setInt(3, c.getHeight());
+		stmt.setInt(4, c.getAge());
+		stmt.setDouble(5, c.getBudget());
+		stmt.setString(6, c.getTicketType());
+		stmt.setString(7, c.getFirstName());
+		stmt.setString(8, c.getLastName());
+		int numRowsAffected = stmt.executeUpdate();
+		System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+
 	/* Advanced Queries */
 	
 	/* Average Ride Rating */
@@ -451,12 +467,27 @@ public class Database {
 
 	/* What Ride Classification has the Best Rating */
 	public ResultSet bestRatedTypeOfRide() throws SQLException {
-		String sql = "SELECT "
+		String sql = "SELECT RideType, avg(Rating) as AvgRating " +
+					 "FROM Ride " +
+					 "GROUP BY RideType " +
+					 "ORDER BY avg(Rating) DESC";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet bestRideByClassification = stmt.executeQuery();
+		return bestRideByClassification;
 	}
+	
 	/* NEED GROUP 2 QUERY */
 
 	/* Find the 5 Lowest Rated Rides */
-
+	public ResultSet lowestRatedRides() throws SQLException {
+		String sql = "SELECT * " +
+					 "FROM Ride " +
+					 "ORDER BY Rating ASC " +
+					 "LIMIT 5";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet lowestRatedRides = stmt.executeQuery();
+		return lowestRatedRides;
+	}
 	/* Rides With Above Average Wait Times */
 
 	/* NEED GROUP 3 QUERY */
