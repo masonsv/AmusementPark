@@ -455,7 +455,7 @@ public class Database {
 		System.out.println("Number of rows affected: " + numRowsAffected);
 	}
 
-	/* Advanced Queries */
+	/* 			Advanced Queries 		  */
 	
 	/* Average Ride Rating */
 	public ResultSet averageRideRating() throws SQLException {
@@ -489,7 +489,25 @@ public class Database {
 		return lowestRatedRides;
 	}
 	/* Rides With Above Average Wait Times */
+	public ResultSet aboveAvgWaitTimes() throws SQLException {
+		String sql = "SELECT * " + 
+					 "FROM Ride " +
+					 "WHERE AvgWaitTime > (SELECT avg(AvgWaitTime) FROM Ride";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet aboveAvgWaitTimes = stmt.executeQuery();
+		return aboveAvgWaitTimes;
+	}
 
-	/* NEED GROUP 3 QUERY */
 
+	/* Find Customers Who Made The Most of The Park */
+	public ResultSet customersWhoDidEverything() throws SQLException {
+		String sql = "SELECT c.CustomerID, c.FirstName, c.LastName " +
+					 "FROM Customer as c "+
+					 "WHERE c.CustomerID IN (SELECT CustomerID FROM RIDE_ON) " +
+					 "AND c.CustomerID IN (SELECT CustomerID FROM PLAY) " +
+					 "AND c.CustomerID IN (SELECT CustomerID FROM EAT_AT)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet customersWhoDidEverything = stmt.executeQuery();
+		return customersWhoDidEverything;
+	}
 }
