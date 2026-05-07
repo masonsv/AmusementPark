@@ -459,7 +459,7 @@ public class Database {
 	
 	/* Average Ride Rating */
 	public ResultSet averageRideRating() throws SQLException {
-		String sql = "SELECT AVG(Rating) FROM Ride";
+		String sql = "SELECT avg(Rating) as AvgRating FROM Ride";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet averageRideRating = stmt.executeQuery();
 		return averageRideRating;
@@ -476,23 +476,38 @@ public class Database {
 		return bestRideByClassification;
 	}
 	
-	/* NEED GROUP 2 QUERY */
+	/* Customer Activity Report */
+	public ResultSet customerActivityReport() throws SQLException {
+		String sql = "SELECT c.CustomerID, c.FirstName, c.LastName, t.TicketType, " + 
+					 "count(DISTINCT r.RideID) as RidesRidden, " + 
+					 "count(DISTINCT p.GameID) as GamesPlayed, " + 
+					 "count(DISTINCT e.StallID) as FoodEaten " + 
+					 "FROM Customer c JOIN Ticket t ON c.TicketType = t.TicketType " + 
+					 "JOIN RIDE_ON r ON c.CustomerID = r.CustomerID " + 
+					 "JOIN PLAY p ON c.CustomerID = p.CustomerID " + 
+					 "JOIN EAT_AT e ON c.CustomerID = e.CustomerID " + 
+					 "GROUP BY c.CustomerID, c.FirstName, c.LastName, t.TicketType";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet customerActivityReport = stmt.executeQuery();
+		return customerActivityReport;
+	}
 
 	/* Find the 5 Lowest Rated Rides */
 	public ResultSet lowestRatedRides() throws SQLException {
 		String sql = "SELECT * " +
 					 "FROM Ride " +
-					 "ORDER BY Rating ASC " +
-					 "LIMIT 5";
+					 "ORDER BY Rating DESC " +
+					 "OFFSET count(Ride) - 5";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet lowestRatedRides = stmt.executeQuery();
 		return lowestRatedRides;
 	}
+
 	/* Rides With Above Average Wait Times */
 	public ResultSet aboveAvgWaitTimes() throws SQLException {
 		String sql = "SELECT * " + 
 					 "FROM Ride " +
-					 "WHERE AvgWaitTime > (SELECT avg(AvgWaitTime) FROM Ride";
+					 "WHERE AvgWaitTime > (SELECT avg(AvgWaitTime) FROM Ride)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet aboveAvgWaitTimes = stmt.executeQuery();
 		return aboveAvgWaitTimes;

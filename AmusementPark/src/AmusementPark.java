@@ -603,8 +603,20 @@ public class AmusementPark {
 		}
 
 		/* Advanced Queries */
-		public static void averageRideRating(){
+		public static void averageRideRating(Database db){
+			try{
+				DecimalFormat df = new DecimalFormat("0.00");
+				ResultSet results = db.averageRideRating();
+				
+				while(results.next()) {
+					double AvgRating = results.getDouble("AvgRating");
 
+					System.out.println("Average Ride Rating: [" + df.format(AvgRating) + "]");
+				}
+			} catch(SQLException e) {
+				System.out.println("Something went wrong when executing average ride rating query!");
+				e.printStackTrace();
+			}
 		}
 
 		public static void bestRatedTypeOfRide(Database db){
@@ -625,6 +637,86 @@ public class AmusementPark {
 				}
 			} catch(SQLException e) {
 				System.out.println("Something went wrong when executing best rated type of ride query!");
+				e.printStackTrace();
+			}
+		}
+
+		public static void customerActivityReport(Database db){
+			try{
+				DecimalFormat df = new DecimalFormat("0.00");
+				ResultSet results = db.customerActivityReport();
+				
+				while(results.next()) {
+					int CustomerID = results.getInt("CustomerID");
+					String FirstName = results.getString("FirstName");
+					String LastName = results.getString("LastName");
+					String TicketType = results.getString("TicketType");
+					int RidesRidden = results.getInt("RidesRidden");
+					int GamesPlayed = results.getInt("GamesPlayed");
+					int FoodEaten = results.getInt("FoodEaten");
+
+				}
+			} catch(SQLException e) {
+				System.out.println("Something went wrong when executing customber actiity report query!");
+				e.printStackTrace();
+			}
+		}
+
+		public static void lowestRatedRides(Database db){
+			try{
+				DecimalFormat df = new DecimalFormat("0.00");
+				ResultSet results = db.customerActivityReport();
+				
+				while(results.next()) {
+					int CustomerID = results.getInt("CustomerID");
+					String FirstName = results.getString("FirstName");
+					String LastName = results.getString("LastName");
+					String TicketType = results.getString("TicketType");
+					int RidesRidden = results.getInt("RidesRidden");
+					int GamesPlayed = results.getInt("GamesPlayed");
+					int FoodEaten = results.getInt("FoodEaten");
+
+				}
+			} catch(SQLException e) {
+				System.out.println("Something went wrong when executing lowest rated rides query!");
+				e.printStackTrace();
+			}
+		}
+
+		public static void aboveAvgWaitTimes(Database db){
+			try{
+				DecimalFormat df = new DecimalFormat("0.00");
+				ResultSet results = db.customerActivityReport();
+				
+				while(results.next()) {
+					int CustomerID = results.getInt("CustomerID");
+					String FirstName = results.getString("FirstName");
+					String LastName = results.getString("LastName");
+					String TicketType = results.getString("TicketType");
+					int RidesRidden = results.getInt("RidesRidden");
+					int GamesPlayed = results.getInt("GamesPlayed");
+					int FoodEaten = results.getInt("FoodEaten");
+
+				}
+			} catch(SQLException e) {
+				System.out.println("Something went wrong when executing above average wait times query!");
+				e.printStackTrace();
+			}
+		}
+
+		public static void customersWhoDidEverything(Database db){
+			try{
+				DecimalFormat df = new DecimalFormat("0.00");
+				ResultSet results = db.customerActivityReport();
+				
+				while(results.next()) {
+					int CustomerID = results.getInt("CustomerID");
+					String FirstName = results.getString("FirstName");
+					String LastName = results.getString("LastName");
+
+				}
+			} catch(SQLException e) {
+				System.out.println("Something went wrong when executing customers who did everything query!");
 				e.printStackTrace();
 			}
 		}
