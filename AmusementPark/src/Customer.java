@@ -1,12 +1,12 @@
 
 public class Customer {
 
-	private int CustomerID;
-	private int ThrillLevel;
+	private int CustomerID; //increments 1 by each customer
+	private int ThrillLevel; //num between 1-10
 	private int Height;    //inches
-	private int Age;
+	private int Age;	//years
 	private double Budget; //$xxx.xx
-	private String TicketType;
+	private String TicketType; //General Admission, Senior, Half Day, Child
 	private String FirstName;
 	private String LastName;
 	

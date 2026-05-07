@@ -666,14 +666,9 @@ public class AmusementPark {
 				ResultSet results = db.customerActivityReport();
 				
 				while(results.next()) {
-					int RideID = results.getInt("RideID");
-					int ThrillLevel = results.getInt("ThrillLevel");
-					int HeightRequirement = results.getInt("HeightRequirement");   
-					int Rating = results.getInt("Rating");;
-					int Capacity = results.getInt("Capacity");
-					int RideTime = results.getInt("RideTime");; 
-					double AvgWaitTime = results.getDouble("AvgWaitTime");;
-					String RideName = results.getString("RideName");;
+					int RideID = results.getInt("RideID");   
+					int Rating = results.getInt("Rating");
+					String RideName = results.getString("RideName");
 					String RideType = results.getString("RideType");
 				}
 			} catch(SQLException e) {
@@ -689,9 +684,6 @@ public class AmusementPark {
 				
 				while(results.next()) {
 					int RideID = results.getInt("RideID");
-					int ThrillLevel = results.getInt("ThrillLevel");
-					int HeightRequirement = results.getInt("HeightRequirement");   
-					int Rating = results.getInt("Rating");;
 					int Capacity = results.getInt("Capacity");
 					int RideTime = results.getInt("RideTime");; 
 					double AvgWaitTime = results.getDouble("AvgWaitTime");;
@@ -721,7 +713,3 @@ public class AmusementPark {
 		}
 
 }
-
-
-
-

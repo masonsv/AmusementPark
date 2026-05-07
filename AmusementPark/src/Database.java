@@ -492,8 +492,8 @@ public class Database {
 
 	/* Find the 5 Lowest Rated Rides */
 	public ResultSet lowestRatedRides() throws SQLException {
-		String sql = "SELECT * " +
-					 "FROM Ride " +
+		String sql = "SELECT r.RideID, r.Rating, r.RideName, r.RideType, " +
+					 "FROM Ride as r " +
 					 "ORDER BY Rating DESC " +
 					 "OFFSET count(Ride) - 5";
 		PreparedStatement stmt = connection.prepareStatement(sql);
@@ -503,8 +503,8 @@ public class Database {
 
 	/* Rides With Above Average Wait Times */
 	public ResultSet aboveAvgWaitTimes() throws SQLException {
-		String sql = "SELECT * " + 
-					 "FROM Ride " +
+		String sql = "SELECT  r.RideID, r.Capacity, r.RideTime, r.AvgWaitTime, r.RideName, r.RideType, " + 
+					 "FROM Ride as r " +
 					 "WHERE AvgWaitTime > (SELECT avg(AvgWaitTime) FROM Ride)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		ResultSet aboveAvgWaitTimes = stmt.executeQuery();
