@@ -188,7 +188,7 @@ public class Database {
 			
 			int AmountSold = results.getInt("AmountSold");
     		double Price = results.getDouble("Price");
-    		String Name = results.getString("Name");
+    		String Name = results.getString("StallName");
 			String FoodType = results.getString("FoodType");
 
 			f = new FoodStall(StallID, AmountSold, Price, Name, FoodType);
@@ -436,5 +436,91 @@ public class Database {
 		int numRowsAffected = stmt.executeUpdate();
 		return numRowsAffected > 0;
 	}
-		
+
+	public void insertBUY_TICKET(Customer c) throws SQLException{
+		String sql = "INSERT INTO BUY_TICKET (CustomerID, ThrillLevel, Height, Age, Budget, TicketType,"
+					+ " FirstName, LastName) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setInt(1, c.getCustomerID());
+		stmt.setInt(2, c.getThrillLevel());
+		stmt.setInt(3, c.getHeight());
+		stmt.setInt(4, c.getAge());
+		stmt.setDouble(5, c.getBudget());
+		stmt.setString(6, c.getTicketType());
+		stmt.setString(7, c.getFirstName());
+		stmt.setString(8, c.getLastName());
+		int numRowsAffected = stmt.executeUpdate();
+		System.out.println("Number of rows affected: " + numRowsAffected);
+	}
+
+	/* 			Advanced Queries 		  */
+	
+	/* Average Ride Rating */
+	public ResultSet averageRideRating() throws SQLException {
+		String sql = "SELECT avg(Rating) as AvgRating FROM Ride";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet averageRideRating = stmt.executeQuery();
+		return averageRideRating;
+	}
+
+	/* What Ride Classification has the Best Rating */
+	public ResultSet bestRatedTypeOfRide() throws SQLException {
+		String sql = "SELECT RideType, avg(Rating) as AvgRating " +
+					 "FROM Ride " +
+					 "GROUP BY RideType " +
+					 "ORDER BY avg(Rating) DESC";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet bestRideByClassification = stmt.executeQuery();
+		return bestRideByClassification;
+	}
+	
+	/* Customer Activity Report */
+	public ResultSet customerActivityReport() throws SQLException {
+		String sql = "SELECT c.CustomerID, c.FirstName, c.LastName, t.TicketType, " + 
+					 "count(DISTINCT r.RideID) as RidesRidden, " + 
+					 "count(DISTINCT p.GameID) as GamesPlayed, " + 
+					 "count(DISTINCT e.StallID) as FoodEaten " + 
+					 "FROM Customer c JOIN Ticket t ON c.TicketType = t.TicketType " + 
+					 "JOIN RIDE_ON r ON c.CustomerID = r.CustomerID " + 
+					 "JOIN PLAY p ON c.CustomerID = p.CustomerID " + 
+					 "JOIN EAT_AT e ON c.CustomerID = e.CustomerID " + 
+					 "GROUP BY c.CustomerID, c.FirstName, c.LastName, t.TicketType";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet customerActivityReport = stmt.executeQuery();
+		return customerActivityReport;
+	}
+
+	/* Find the 5 Lowest Rated Rides */
+	public ResultSet lowestRatedRides() throws SQLException {
+		String sql = "SELECT * " +
+					 "FROM Ride " +
+					 "ORDER BY Rating DESC " +
+					 "OFFSET count(Ride) - 5";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet lowestRatedRides = stmt.executeQuery();
+		return lowestRatedRides;
+	}
+
+	/* Rides With Above Average Wait Times */
+	public ResultSet aboveAvgWaitTimes() throws SQLException {
+		String sql = "SELECT * " + 
+					 "FROM Ride " +
+					 "WHERE AvgWaitTime > (SELECT avg(AvgWaitTime) FROM Ride)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet aboveAvgWaitTimes = stmt.executeQuery();
+		return aboveAvgWaitTimes;
+	}
+
+
+	/* Find Customers Who Made The Most of The Park */
+	public ResultSet customersWhoDidEverything() throws SQLException {
+		String sql = "SELECT c.CustomerID, c.FirstName, c.LastName " +
+					 "FROM Customer as c "+
+					 "WHERE c.CustomerID IN (SELECT CustomerID FROM RIDE_ON) " +
+					 "AND c.CustomerID IN (SELECT CustomerID FROM PLAY) " +
+					 "AND c.CustomerID IN (SELECT CustomerID FROM EAT_AT)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		ResultSet customersWhoDidEverything = stmt.executeQuery();
+		return customersWhoDidEverything;
+	}
 }
