@@ -12,26 +12,26 @@ public class AmusementPark {
 		db.connect();
 		System.out.println("Successfully connected!\n");
 
-		System.out.println("Findind best rated ride types");
+		System.out.println("Finding average ride rating");
+		averageRideRating(db);
+
+		System.out.println("Finding best rated ride types");
 		bestRatedTypeOfRide(db);
-		//Game new_game = create_carnival_game_database(db, 1, 1, 7.50, .3, "Ring Toss");
-	//	Ticket ticket = create_ticket_database(db, "Senior", 50);
-		//Customer cust = create_customer_database(db, 1, 10, 60, 72, 600.00, "General Admission", "Bob", "Kirk");
-		
+
+		System.out.println("Grabbing customer activity report");
+		customerActivityReport(db);
+
+		System.out.println("Finding 5 lowest rated rides");
+		lowestRatedRides(db);
+
+		System.out.println("Finding above average wait times");
+		aboveAvgWaitTimes(db);
+
+		System.out.println("Finding customers who did everything");
+		customersWhoDidEverything(db);
+
 		db.disconnect();
-		
 	}
-	/* 
-	private int CustomerID;
-	private int ThrillLevel;
-	private int Height;    //inches
-	private int Age;
-	private double Budget; //$xxx.xx
-	private String TicketType;
-	private String FirstName;
-	private String LastName;
-	*/
-	
 
 	/**
 	 * Queries the database for the contents of the Ticket table. The tuples are translated into an array list of Ticket objects and then printed.
@@ -666,14 +666,15 @@ public class AmusementPark {
 				ResultSet results = db.customerActivityReport();
 				
 				while(results.next()) {
-					int CustomerID = results.getInt("CustomerID");
-					String FirstName = results.getString("FirstName");
-					String LastName = results.getString("LastName");
-					String TicketType = results.getString("TicketType");
-					int RidesRidden = results.getInt("RidesRidden");
-					int GamesPlayed = results.getInt("GamesPlayed");
-					int FoodEaten = results.getInt("FoodEaten");
-
+					int RideID = results.getInt("RideID");
+					int ThrillLevel = results.getInt("ThrillLevel");
+					int HeightRequirement = results.getInt("HeightRequirement");   
+					int Rating = results.getInt("Rating");;
+					int Capacity = results.getInt("Capacity");
+					int RideTime = results.getInt("RideTime");; 
+					double AvgWaitTime = results.getDouble("AvgWaitTime");;
+					String RideName = results.getString("RideName");;
+					String RideType = results.getString("RideType");
 				}
 			} catch(SQLException e) {
 				System.out.println("Something went wrong when executing lowest rated rides query!");
@@ -687,14 +688,15 @@ public class AmusementPark {
 				ResultSet results = db.customerActivityReport();
 				
 				while(results.next()) {
-					int CustomerID = results.getInt("CustomerID");
-					String FirstName = results.getString("FirstName");
-					String LastName = results.getString("LastName");
-					String TicketType = results.getString("TicketType");
-					int RidesRidden = results.getInt("RidesRidden");
-					int GamesPlayed = results.getInt("GamesPlayed");
-					int FoodEaten = results.getInt("FoodEaten");
-
+					int RideID = results.getInt("RideID");
+					int ThrillLevel = results.getInt("ThrillLevel");
+					int HeightRequirement = results.getInt("HeightRequirement");   
+					int Rating = results.getInt("Rating");;
+					int Capacity = results.getInt("Capacity");
+					int RideTime = results.getInt("RideTime");; 
+					double AvgWaitTime = results.getDouble("AvgWaitTime");;
+					String RideName = results.getString("RideName");;
+					String RideType = results.getString("RideType");
 				}
 			} catch(SQLException e) {
 				System.out.println("Something went wrong when executing above average wait times query!");
@@ -711,7 +713,6 @@ public class AmusementPark {
 					int CustomerID = results.getInt("CustomerID");
 					String FirstName = results.getString("FirstName");
 					String LastName = results.getString("LastName");
-
 				}
 			} catch(SQLException e) {
 				System.out.println("Something went wrong when executing customers who did everything query!");
