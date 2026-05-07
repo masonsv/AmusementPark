@@ -286,7 +286,7 @@ public class AmusementPark {
 	 * @param db : database object to interact with
 	 * @return the ride object with the parameters as specified
 	 */
-	public static Ride create_carnival_game_database(Database db, int RideID, int ThrillLevel, int HeightRequirement, int Rating, int Capacity, int RideTime, double AvgWaitTime, String RideName, String RideType){
+	public static Ride create_ride_database(Database db, int RideID, int ThrillLevel, int HeightRequirement, int Rating, int Capacity, int RideTime, double AvgWaitTime, String RideName, String RideType){
 		Ride r = new Ride(RideID, ThrillLevel, HeightRequirement, Rating, Capacity, RideTime, AvgWaitTime, RideName, RideType);
 		try {
 			db.insertRide(r);
@@ -370,12 +370,11 @@ public class AmusementPark {
 			while(results.next()) {
 
 				int GameID = results.getInt("GameID");	
-				int PrizeID = results.getInt("PrizeID");
     			double Price = results.getDouble("Price");
     			double WinOdds = results.getDouble("WinOdds");
     			String Name = results.getString("GameName");
 					
-				Game g = new Game(GameID, PrizeID, Price, WinOdds, Name);
+				Game g = new Game(GameID, Price, WinOdds, Name);
 					
 				lst.add(g);
 			}
@@ -394,7 +393,7 @@ public class AmusementPark {
 	 * Look up an Carnival Game using a GameID.
 	 * @param db : database object to interact with
 	 */
-	public static Game read_from_carival_game_database(Database db, int gameID){
+	public static Game read_from_carnival_game_database(Database db, int gameID){
 		
 		try {
 			
@@ -415,14 +414,13 @@ public class AmusementPark {
 	 * Creates a new Carnival Game object and adds a tuple to the Carnival Game table.
 	 * @param db : database object to interact with
 	 * @param GameID
-	 * @param PrizeID
 	 * @param Price
 	 * @param WinOdds
 	 * @param GameName
 	 * @return the Carnival Game object with the parameters as specified
 	 */
-	public static Game create_carnival_game_database(Database db, int GameID, int PrizeID, double Price, double WinOdds, String GameName){
-		Game g = new Game(GameID, PrizeID, Price, WinOdds, GameName);
+	public static Game create_carnival_game_database(Database db, int GameID, double Price, double WinOdds, String GameName){
+		Game g = new Game(GameID, Price, WinOdds, GameName);
 		try {
 			db.insertCarnivalGame(g);
 		} catch(SQLException ex) {

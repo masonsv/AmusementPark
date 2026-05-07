@@ -93,13 +93,12 @@ public class Database {
 	 * @throws SQLException
 	 */
 	public void insertCarnivalGame(Game g) throws SQLException {
-		String sql = "INSERT INTO CarnivalGame (GameID, PrizeID, Price, GameName, WinOdds) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO CarnivalGame (GameID, Price, GameName, WinOdds) VALUES (?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setInt(1, g.getGameID());
-		stmt.setDouble(2, g.getPrizeID());
-		stmt.setDouble(3, g.getPrice());
-		stmt.setString(4, g.getName());
-		stmt.setDouble(5, g.getWinOdds());
+		stmt.setDouble(2, g.getPrice());
+		stmt.setString(3, g.getName());
+		stmt.setDouble(4, g.getWinOdds());
 		int numRowsAffected = stmt.executeUpdate();
 		System.out.println("Number of rows affected: " + numRowsAffected);
 	}
@@ -120,12 +119,11 @@ public class Database {
 		if(results.next()) {
 			
 			int GameID = results.getInt("GameID");	
-			int PrizeID = results.getInt("PrizeID");
     		double Price = results.getDouble("Price");
     		double WinOdds = results.getDouble("WinOdds");
     		String Name = results.getString("GameName");
 			
-			g = new Game(GameID, PrizeID, Price, WinOdds, Name);
+			g = new Game(GameID, Price, WinOdds, Name);
 		}
 		return g;
 	}
