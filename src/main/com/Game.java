@@ -4,15 +4,13 @@ package main.com;
 public class Game {
 
 	private int GameID;
-	private int PrizeID;
     private double Price;
     private double WinOdds;
     private String Name;
 	
-	public Game(int GameID, int PrizeID, double Price, double WinOdds, String Name) {
+	public Game(int GameID, double Price, double WinOdds, String Name) {
 		super();
 		this.GameID = GameID;
-		this.PrizeID = PrizeID;
 		this.Price = Price;
 		this.WinOdds = WinOdds;
 		this.Name = Name;
@@ -24,14 +22,6 @@ public class Game {
 
 	public void getGameID(int GameID) {
 		this.GameID = GameID;
-	}
-
-	public int getPrizeID() {
-		return PrizeID;
-	}
-
-	public void getPrizeID(int PrizeID) {
-		this.PrizeID = PrizeID;
 	}
 
 	public double getPrice() {
@@ -60,7 +50,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Game [GameID=" + GameID + ", PrizeID=" + PrizeID + ", Price=" + Price + ", WinOdds=" + WinOdds
+		return "Game [GameID=" + GameID + ", Price=" + Price + ", WinOdds=" + WinOdds
 				+ ", Name=" + Name + "]";
 	}
 	
