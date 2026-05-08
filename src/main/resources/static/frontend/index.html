@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎢 Amusement Park Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎢 Amusement Park Management System</h1>
+            <p>Manage rides, customers, games, food stalls & tickets</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="customers">👥 Customers</button>
+            <button class="tab" data-tab="rides">🎢 Rides</button>
+            <button class="tab" data-tab="tickets">🎫 Tickets</button>
+            <button class="tab" data-tab="games">🎯 Games</button>
+            <button class="tab" data-tab="food">🍔 Food Stalls</button>
+            <button class="tab" data-tab="analytics">📊 Analytics</button>
+        </nav>
+
+        <!-- CUSTOMERS SECTION -->
+        <section id="customers" class="tab-content active">
+            <div class="section-header">
+                <h2>Customer Management</h2>
+            </div>
+
+            <div class="form-card">
+                <h3>Add New Customer</h3>
+                <form id="add-customer-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" id="customer-firstname" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" id="customer-lastname" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Height (inches) *</label>
+                            <input type="number" id="customer-height" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" id="customer-age">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Thrill Level (1-10)</label>
+                            <input type="number" id="customer-thrill" min="1" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label>Spent ($)</label>
+                            <input type="number" step="0.01" id="customer-spent">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Ticket Type *</label>
+                        <select id="customer-ticket" required>
+                            <option value="">-- Select Ticket Type --</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Customer</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+            </div>
+
+            <div class="data-section">
+                <h3>All Customers</h3>
+                <input type="text" id="customer-search" class="search-input" placeholder="🔍 Search customers...">
+                <div id="customers-list" class="cards-grid"></div>
+            </div>
+        </section>
+
+        <!-- RIDES SECTION -->
+        <section id="rides" class="tab-content">
+            <div class="section-header">
+                <h2>Ride Management</h2>
+            </div>
+
+            <div class="form-card">
+                <h3>Add New Ride</h3>
+                <form id="add-ride-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ride Name *</label>
+                            <input type="text" id="ride-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ride Type</label>
+                            <input type="text" id="ride-type" placeholder="Roller Coaster, Dark Ride, etc.">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Height Requirement (inches)</label>
+                            <input type="number" id="ride-height">
+                        </div>
+                        <div class="form-group">
+                            <label>Capacity</label>
+                            <input type="number" id="ride-capacity">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Thrill Level (1-10)</label>
+                            <input type="number" id="ride-thrill" min="1" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label>Ride Time (minutes)</label>
+                            <input type="number" id="ride-time" step="0.1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Avg Wait Time (minutes)</label>
+                            <input type="number" id="ride-wait" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Rating (0-5)</label>
+                            <input type="number" id="ride-rating" step="0.1" min="0" max="5">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Ride</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+            </div>
+
+            <div class="data-section">
+                <h3>All Rides</h3>
+                <input type="text" id="ride-search" class="search-input" placeholder="🔍 Search rides...">
+                <div id="rides-list" class="cards-grid"></div>
+            </div>
+        </section>
+
+        <!-- TICKETS SECTION -->
+        <section id="tickets" class="tab-content">
+            <div class="section-header">
+                <h2>Ticket Management</h2>
+            </div>
+
+            <div class="form-card">
+                <h3>Add New Ticket Type</h3>
+                <form id="add-ticket-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ticket Type *</label>
+                            <input type="text" id="ticket-type" placeholder="e.g., General Admission, VIP Pass" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Price ($) *</label>
+                            <input type="number" step="0.01" id="ticket-price" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Ticket Type</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+            </div>
+
+            <div class="data-section">
+                <h3>Available Ticket Types</h3>
+                <div id="tickets-list" class="cards-grid"></div>
+            </div>
+        </section>
+
+        <!-- GAMES SECTION -->
+        <section id="games" class="tab-content">
+            <div class="section-header">
+                <h2>Carnival Games Management</h2>
+            </div>
+
+            <div class="form-card">
+                <h3>Add New Game</h3>
+                <form id="add-game-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Game Name *</label>
+                            <input type="text" id="game-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Prize ID</label>
+                            <input type="number" id="game-prize">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price ($) *</label>
+                            <input type="number" step="0.01" id="game-price" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Win Odds (0-1)</label>
+                            <input type="number" step="0.01" id="game-odds" min="0" max="1" placeholder="e.g., 0.25 = 25%">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Game</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+            </div>
+
+            <div class="data-section">
+                <h3>All Games</h3>
+                <div id="games-list" class="cards-grid"></div>
+            </div>
+        </section>
+
+        <!-- FOOD STALLS SECTION -->
+        <section id="food" class="tab-content">
+            <div class="section-header">
+                <h2>Food Stall Management</h2>
+            </div>
+
+            <div class="form-card">
+                <h3>Add New Food Stall</h3>
+                <form id="add-food-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Stall Name *</label>
+                            <input type="text" id="food-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Food Type</label>
+                            <input type="text" id="food-type" placeholder="e.g., Pizza, Ice Cream">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price ($) *</label>
+                            <input type="number" step="0.01" id="food-price" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount Sold</label>
+                            <input type="number" id="food-sold" value="0">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Food Stall</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+            </div>
+
+            <div class="data-section">
+                <h3>All Food Stalls</h3>
+                <div id="food-list" class="cards-grid"></div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS SECTION -->
+        <section id="analytics" class="tab-content">
+            <div class="section-header">
+                <h2>📊 Advanced Analytics & Reports</h2>
+                <p>Insights from your database using advanced queries</p>
+            </div>
+
+            <!-- Average Ride Rating -->
+            <div class="analytics-card">
+                <h3>🎢 Average Ride Rating</h3>
+                <div id="avg-rating-display" class="metric-display">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Best Rated Ride Types -->
+            <div class="analytics-card">
+                <h3>⭐ Best Rated Ride Types</h3>
+                <div id="best-ride-types" class="data-table">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Customer Activity Report -->
+            <div class="analytics-card">
+                <h3>👥 Customer Activity Report</h3>
+                <p class="card-subtitle">Customers who participated in rides, games, and food</p>
+                <div id="customer-activity" class="data-table">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Above Average Wait Times -->
+            <div class="analytics-card">
+                <h3>⏱️ Rides with Above Average Wait Times</h3>
+                <div id="above-avg-wait" class="data-table">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Customers Who Did Everything -->
+            <div class="analytics-card">
+                <h3>🏆 Customers Who Did Everything</h3>
+                <p class="card-subtitle">Customers who rode rides, played games, AND ate food</p>
+                <div id="customers-everything" class="data-table">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

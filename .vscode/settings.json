@@ -1,9 +1,54 @@
-{
+   {
+       "java.configuration.updateBuildConfiguration": "automatic",
+       "java.compile.nullAnalysis.mode": "automatic"
+   }
+
+
+
+
+/*{
     "java.project.sourcePaths": [
         ".",
         "AmusementPark\\src"
     ],
     "java.project.referencedLibraries": [
         "AmusementPark\\lib\\mysql-connector-j-9.0.0.jar"
+    ],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive"
+    
+}
+
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "138.49.184.47",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "test",
+            "database": "Chinook",
+            "username": "vagle0060"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled",
+                "ssl": {}
+            },
+            "previewLimit": 50,
+            "server": "138.49.184.47",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "test-again",
+            "database": "vagle0060_AmusementPark",
+            "username": "vagle0060",
+            "askForPassword": true
+        }
     ]
 }
+*/
